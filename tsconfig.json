@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "types": [
+            "node"
+        ],
+        "lib": [
+            "esnext"
+        ],
+        "module": "commonjs",
+        "outDir": "./lib",
+        "target": "es2015",
+        "declaration": true,
+        "declarationDir": "./lib",
+        "sourceMap": true,
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "preserveConstEnums": true,
+        "removeComments": false,
+        "pretty": true,
+        "newLine": "lf"
+    },
+    "typeRoots": [
+        "./node_modules/@types"
+    ],
+    "include": [
+        "./src/**/*"
+    ],
+    "exclude": [
+        "lib",
+        "node_modules"
+    ]
+}

@@ -1,0 +1,38 @@
+{
+  "name": "zosconnect-zowe-cli",
+  "version": "1.0.0",
+  "description": "z/OS Connect EE Plugin for Zowe CLI",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "zowe",
+    "z/os"
+  ],
+  "author": "Andrew Smithson",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@brightside/imperative": "^1.0.1",
+    "@types/extend": "^3.0.0",
+    "@types/request": "^2.47.1",
+    "@types/request-promise": "^4.1.42",
+    "async": "^2.5.0",
+    "extend": "^3.0.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2"
+  },
+  "imperative": {
+    "configurationModule": "config/configuration.js"
+  },
+  "devDependencies": {
+    "@types/node": "^10.10.1"
+  },
+  "files": [
+    "config",
+    "lib",
+    "zosconnect-node-3.0.0.tgz"
+  ]
+}
