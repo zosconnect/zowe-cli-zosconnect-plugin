@@ -3,7 +3,7 @@ import {ZosConnect} from "./ZosConnect"
 
 export default class ApiListHandler implements ICommandHandler {
     public async process(commandParameters: IHandlerParameters) {
-        let zosConn = new ZosConnect({uri: 'http://winmvs3s.hursley.ibm.com:10112'});
+        let zosConn = new ZosConnect({uri: commandParameters.profiles.get("zosconnect").address});
         try {
             let apis = await zosConn.getApis();
             
