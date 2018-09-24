@@ -32,11 +32,11 @@ module.exports = {
                 description: "Install a new API",
                 type: "command",
                 handler: "lib/ApiInstallHandler",
-                options: [{
+                positionals: [{
                     name: "file",
-                    aliases: ["f"],
                     type: "string",
-                    description: "The AAR file to install"
+                    description: "The AAR file to install",
+                    required: true
                 }],
                 profile: {
                     required: ["zosconnect"]
