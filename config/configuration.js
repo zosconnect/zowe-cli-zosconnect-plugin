@@ -31,19 +31,46 @@ module.exports = {
                 name: "install",
                 description: "Install a new API",
                 type: "command",
-                handler: "lib/ApiListHandler"
+                handler: "lib/ApiInstallHandler",
+                options: [{
+                    name: "file",
+                    aliases: ["f"],
+                    type: "string",
+                    description: "The AAR file to install"
+                }],
+                profile: {
+                    required: ["zosconnect"]
+                }
             },
             {
                 name: "update",
                 description: "Update an existing API",
                 type: "command",
                 handler: "lib/ApiListHandler",
+                positionals: [{
+                    name: "apiName",
+                    description: "The name of the API to delete.",
+                    type: "string",
+                    required: true
+                }],
+                profile: {
+                    required: ["zosconnect"]
+                }
             },
             {
                 name: "delete",
                 description: "Delete an API",
                 type: "command",
-                handler: "lib/ApiListHandler"
+                handler: "lib/ApiDeleteHandler",
+                positionals: [{
+                    name: "apiName",
+                    description: "The name of the API to delete.",
+                    type: "string",
+                    required: true
+                }],
+                profile: {
+                    required: ["zosconnect"]
+                }
             },
             {
                 name: "list",

@@ -32,7 +32,6 @@
   },
   "files": [
     "config",
-    "lib",
-    "zosconnect-node-3.0.0.tgz"
+    "lib"
   ]
 }
