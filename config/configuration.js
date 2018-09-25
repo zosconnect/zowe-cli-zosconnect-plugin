@@ -46,7 +46,7 @@ module.exports = {
                 name: "update",
                 description: "Update an existing API",
                 type: "command",
-                handler: "lib/ApiListHandler",
+                handler: "lib/ApiUpdateHandler",
                 positionals: [{
                     name: "apiName",
                     description: "The name of the API to delete.",
