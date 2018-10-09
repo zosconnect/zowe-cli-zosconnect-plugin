@@ -15,7 +15,7 @@
   "author": "Andrew Smithson",
   "license": "Apache-2.0",
   "dependencies": {
-    "@brightside/imperative": "^1.0.1",
+    "@brightside/core": "^1.0.6",
     "@types/extend": "^3.0.0",
     "@types/request": "^2.47.1",
     "@types/request-promise": "^4.1.42",
@@ -23,6 +23,10 @@
     "extend": "^3.0.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.2"
+  },
+  "peerDependencies": {
+    "@brightside/core": ">=2.0.0-0",
+    "@brightside/imperative": ">=2.0.0-0"
   },
   "imperative": {
     "configurationModule": "config/configuration.js"
