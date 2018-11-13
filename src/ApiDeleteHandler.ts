@@ -1,5 +1,5 @@
 import { ICommandHandler, IHandlerParameters } from "@brightside/imperative";
-import { ZosConnect } from "./ZosConnect";
+import { ZosConnect } from "@zosconnect/zosconnect-node";
 
 export default class ApiDeleteHandler implements ICommandHandler {
     public async process(commandParams: IHandlerParameters) {

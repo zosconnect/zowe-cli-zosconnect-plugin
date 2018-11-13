@@ -1,6 +1,5 @@
 import {ICommandHandler, IHandlerParameters} from "@brightside/imperative"
-import {ZosConnect} from "./ZosConnect"
-import {Api} from "./Api"
+import {ZosConnect} from "@zosconnect/zosconnect-node"
 
 export default class ApiListHandler implements ICommandHandler {
     public async process(commandParameters: IHandlerParameters) {
