@@ -15,22 +15,14 @@
   "author": "Andrew Smithson",
   "license": "Apache-2.0",
   "dependencies": {
-    "@brightside/core": "^1.0.6",
-    "@types/extend": "^3.0.0",
-    "@types/request": "^2.48.1",
-    "@types/request-promise": "^4.1.42",
-    "@zosconnect/zosconnect-node": "^3.0.1",
-    "async": "^2.5.0",
-    "extend": "^3.0.0",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.2"
+    "@zosconnect/zosconnect-node": "^3.0.1"
   },
   "peerDependencies": {
     "@brightside/core": ">=2.0.0-0",
     "@brightside/imperative": ">=2.0.0-0"
   },
   "imperative": {
-    "configurationModule": "config/configuration.js"
+    "configurationModule": "lib/imperative.js"
   },
   "devDependencies": {
     "@types/node": "^10.12.9"
