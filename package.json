@@ -33,7 +33,11 @@
     "configurationModule": "config/configuration.js"
   },
   "devDependencies": {
-    "@types/node": "^10.12.6"
+    "@types/node": "^10.12.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:zosconnect/zowe-cli-zosconnect-plugin.git"
   },
   "files": [
     "config",
