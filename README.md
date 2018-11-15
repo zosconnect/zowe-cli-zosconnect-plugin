@@ -8,7 +8,7 @@ The Zowe CLI needs to be [installed](https://zowe.github.io/docs-site/latest/use
 
 1. Clone this repository `git clone git@github.com:zosconnect/zowe-cli-zosconnect-plugin.git`
 1. Build the plugin `npm run build`
-1. Package the plugin `npm package`
+1. Package the plugin `npm pack`
 1. Install the plugin `zowe plugin install ./zosconnect-zowe-cli-1.0.0.tgz`
 
 ## Create a profile
