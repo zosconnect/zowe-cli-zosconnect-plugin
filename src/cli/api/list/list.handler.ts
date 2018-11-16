@@ -2,7 +2,7 @@ import {ICommandHandler, IHandlerParameters} from "@brightside/imperative"
 import {ZosConnect} from "@zosconnect/zosconnect-node"
 
 export default class ApiListHandler implements ICommandHandler {
-    public async process(commandParameters: IHandlerParameters) {
+    public async process(commandParameters: IHandlerParameters): Promise<void> {
         let zosConn = new ZosConnect({uri: commandParameters.profiles.get("zosconnect").address});
         try {
             let apis = await zosConn.getApis();

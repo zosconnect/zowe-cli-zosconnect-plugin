@@ -1,6 +1,7 @@
 import {IImperativeConfig} from '@brightside/imperative';
 
 const config : IImperativeConfig = {
+    commandModuleGlobs: ["**/cli/*/*.definition!(.d).*s"],
     rootCommandDescription: "z/OS Connect EE plugin for Zowe CLI",
     name: "zosconnect",
     profiles: [{
@@ -24,73 +25,6 @@ const config : IImperativeConfig = {
             required: ["address"]
         }
     }],
-    definitions: [{
-        name: "api",
-        type: "group",
-        description: "Manage Inbound APIs",
-        children: [
-            {
-                name: "install",
-                description: "Install a new API",
-                type: "command",
-                handler: "lib/ApiInstallHandler",
-                positionals: [{
-                    name: "file",
-                    type: "string",
-                    description: "The AAR file to install",
-                    required: true
-                }],
-                profile: {
-                    required: ["zosconnect"]
-                }
-            },
-            {
-                name: "update",
-                description: "Update an existing API",
-                type: "command",
-                handler: "lib/ApiUpdateHandler",
-                positionals: [{
-                    name: "apiName",
-                    description: "The name of the API to delete.",
-                    type: "string",
-                    required: true
-                },
-                {
-                    name: "file",
-                    description: "The new AAR file for the API",
-                    type: "string",
-                    required: true
-                }],
-                profile: {
-                    required: ["zosconnect"]
-                }
-            },
-            {
-                name: "delete",
-                description: "Delete an API",
-                type: "command",
-                handler: "lib/ApiDeleteHandler",
-                positionals: [{
-                    name: "apiName",
-                    description: "The name of the API to delete.",
-                    type: "string",
-                    required: true
-                }],
-                profile: {
-                    required: ["zosconnect"]
-                }
-            },
-            {
-                name: "list",
-                description: "List the APIs installed in the server",
-                type: "command",
-                handler: "lib/ApiListHandler",
-                profile: {
-                    required: ["zosconnect"]
-                }
-            }
-        ]
-    }]
 }
 
 export = config;
