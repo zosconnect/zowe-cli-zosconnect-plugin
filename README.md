@@ -13,7 +13,7 @@ The Zowe CLI needs to be [installed](https://zowe.github.io/docs-site/latest/use
 
 ## Create a profile
 
-* Run the command `zowe profiles create zosconnect -a <server address>`
+* Run the command `zowe profiles create zosconnect -a <server address> [-u <user id> -p <password>]`
 
 ## Working with APIs
 
