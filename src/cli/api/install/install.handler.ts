@@ -1,13 +1,14 @@
 import { ICommandHandler, IHandlerParameters } from "@brightside/imperative";
 import fs = require('fs');
 import { ZosConnect } from '@zosconnect/zosconnect-node';
+import { ConnectionUtil } from "../../../connection";
 
 export default class ApiInstallHandler implements ICommandHandler {
     public async process(commandParameters: IHandlerParameters) {
         let filePath = commandParameters.arguments.file;
         let fileBuf = fs.readFileSync(filePath);
 
-        let zosConn = new ZosConnect({uri: commandParameters.profiles.get("zosconnect").address});
+        let zosConn = ConnectionUtil.getConnection(commandParameters.profiles.get("zosconnect"));
         try {
             let api = await zosConn.createApi(fileBuf);
             commandParameters.response.data.setObj(api);

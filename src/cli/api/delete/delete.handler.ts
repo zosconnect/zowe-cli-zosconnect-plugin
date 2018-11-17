@@ -1,9 +1,10 @@
 import { ICommandHandler, IHandlerParameters } from "@brightside/imperative";
 import { ZosConnect } from "@zosconnect/zosconnect-node";
+import {ConnectionUtil} from "../../../connection";
 
 export default class ApiDeleteHandler implements ICommandHandler {
     public async process(commandParams: IHandlerParameters) {
-        let zosConn = new ZosConnect({uri: commandParams.profiles.get("zosconnect").address});
+        let zosConn = ConnectionUtil.getConnection(commandParams.profiles.get("zosconnect"));
         try {
             let api = await zosConn.getApi(commandParams.arguments.apiName);
             await api.stop();
