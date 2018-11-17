@@ -21,6 +21,26 @@ const config : IImperativeConfig = {
                         required: true,
                     },
                 },
+                user: {
+                    type: "string",
+                    optionDefinition: {
+                        description: "User ID for accessing the server",
+                        type: "string",
+                        name: "user",
+                        aliases: ["u"],
+                        required: false,
+                    }
+                },
+                password: {
+                    type: "password",
+                    optionDefinition: {
+                        description: "Password for the User",
+                        type: "string",
+                        name: "password",
+                        aliases: ["p"],
+                        required: false,
+                    }
+                }
             },
             required: ["address"]
         }
