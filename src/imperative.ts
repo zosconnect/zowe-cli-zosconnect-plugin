@@ -39,6 +39,7 @@ const config : IImperativeConfig = {
                         name: "password",
                         aliases: ["p"],
                         required: false,
+                        implies: ["user"]
                     }
                 }
             },
