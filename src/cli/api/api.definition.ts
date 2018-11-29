@@ -7,7 +7,7 @@ import { ListDefinition } from "./list/list.definition";
 const apiDefinition: ICommandDefinition = {
     name: 'api',
     type: 'group',
-    description: 'Manage Inbound APIs',
+    description: 'Manage z/OS Connect EE APIs',
     children: [InstallDefinition, UpdateDefinition, DeleteDefinition, ListDefinition]
 }
 
