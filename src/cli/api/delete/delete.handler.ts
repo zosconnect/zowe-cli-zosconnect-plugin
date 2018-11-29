@@ -1,10 +1,11 @@
 import { ICommandHandler, IHandlerParameters } from "@brightside/imperative";
 import {ConnectionUtil} from "../../../connection";
-import { StatusCodeError } from "request-promise/errors";
+import { StatusCodeError, RequestError } from "request-promise/errors";
 
 export default class ApiDeleteHandler implements ICommandHandler {
     public async process(commandParams: IHandlerParameters) {
-        let zosConn = ConnectionUtil.getConnection(commandParams.profiles.get("zosconnect"));
+        let profile = commandParams.profiles.get("zosconnect");
+        let zosConn = ConnectionUtil.getConnection(profile);
         try {
             let api = await zosConn.getApi(commandParams.arguments.apiName);
             await api.stop();
@@ -25,6 +26,9 @@ export default class ApiDeleteHandler implements ICommandHandler {
                         default:
                             commandParams.response.console.error(statusCodeError.message);
                     }
+                    break;
+                case RequestError:
+                    commandParams.response.console.error(`Unable to connect to ${profile.name}`);
                     break;
                 default:
                     commandParams.response.console.error(error);

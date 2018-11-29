@@ -2,14 +2,15 @@ import { ICommandHandler, IHandlerParameters } from "@brightside/imperative";
 import fs = require('fs');
 import { ZosConnect } from "@zosconnect/zosconnect-node"
 import { ConnectionUtil } from "../../../connection";
-import { StatusCodeError } from "request-promise/errors";
+import { StatusCodeError, RequestError } from "request-promise/errors";
 
 export default class ApiUpdateHander implements ICommandHandler {
     public async process(commandParameters: IHandlerParameters) {
         let filePath = commandParameters.arguments.file;
         let fileBuf = fs.readFileSync(filePath);
 
-        let zosConn = ConnectionUtil.getConnection(commandParameters.profiles.get("zosconnect"));
+        let profile = commandParameters.profiles.get("zosconnect");
+        let zosConn = ConnectionUtil.getConnection(profile);
         try {
             let api = await zosConn.getApi(commandParameters.arguments.apiName);
             await api.update(fileBuf);
@@ -32,6 +33,9 @@ export default class ApiUpdateHander implements ICommandHandler {
                         default:
                             commandParameters.response.console.error(statusCodeError.message);
                     }
+                    break;
+                case RequestError:
+                    commandParameters.response.console.error(`Unable to connect to ${profile.name}`);
                     break;
                 default:
                     commandParameters.response.console.error(error);
