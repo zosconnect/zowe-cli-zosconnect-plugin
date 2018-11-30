@@ -9,9 +9,9 @@ export const InstallDefinition: ICommandDefinition = {
         name: "file",
         type: "string",
         description: "The AAR file to install",
-        required: true
+        required: true,
     }],
     profile: {
-        required: ["zosconnect"]
-    }
-}
+        required: ["zosconnect"],
+    },
+};

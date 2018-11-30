@@ -6,6 +6,6 @@ export const ListDefinition: ICommandDefinition = {
     type: "command",
     handler: __dirname + "/list.handler",
     profile: {
-        required: ["zosconnect"]
-    }
-}
+        required: ["zosconnect"],
+    },
+};

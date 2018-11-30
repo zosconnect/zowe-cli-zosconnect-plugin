@@ -1,6 +1,6 @@
-import {IImperativeConfig} from '@brightside/imperative';
+import {IImperativeConfig} from "@brightside/imperative";
 
-const config : IImperativeConfig = {
+const config: IImperativeConfig = {
     commandModuleGlobs: ["**/cli/*/*.definition!(.d).*s"],
     rootCommandDescription: "z/OS Connect EE plugin for Zowe CLI",
     name: "zosconnect",
@@ -16,7 +16,7 @@ const config : IImperativeConfig = {
                     optionDefinition: {
                         description: "URI of the z/OS Connect EE server",
                         type: "string",
-                        name: "address", 
+                        name: "address",
                         aliases: ["a"],
                         required: true,
                     },
@@ -29,7 +29,7 @@ const config : IImperativeConfig = {
                         name: "user",
                         aliases: ["u"],
                         required: false,
-                    }
+                    },
                 },
                 password: {
                     type: "password",
@@ -39,14 +39,14 @@ const config : IImperativeConfig = {
                         name: "password",
                         aliases: ["p"],
                         required: false,
-                        implies: ["user"]
-                    }
-                }
+                        implies: ["user"],
+                    },
+                },
             },
-            required: ["address"]
-        }
+            required: ["address"],
+        },
     }],
-    pluginHealthCheck: __dirname + "/healthcheck.handler"
-}
+    pluginHealthCheck: __dirname + "/healthcheck.handler",
+};
 
 export = config;

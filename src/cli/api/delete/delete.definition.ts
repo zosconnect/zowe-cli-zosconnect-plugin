@@ -9,9 +9,9 @@ export const DeleteDefinition: ICommandDefinition = {
         name: "apiName",
         description: "The name of the API to delete.",
         type: "string",
-        required: true
+        required: true,
     }],
     profile: {
-        required: ["zosconnect"]
-    }
-}
+        required: ["zosconnect"],
+    },
+};
