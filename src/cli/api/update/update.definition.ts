@@ -7,7 +7,7 @@ export const UpdateDefinition: ICommandDefinition = {
     handler: __dirname + "/update.handler",
     positionals: [{
         name: "apiName",
-        description: "The name of the API to delete.",
+        description: "The name of the API to update.",
         type: "string",
         required: true,
     },
