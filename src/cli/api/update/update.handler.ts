@@ -27,6 +27,10 @@ export default class ApiUpdateHander implements ICommandHandler {
                         case 403:
                             commandParameters.response.console.error("Security error, API was not updated");
                             break;
+                        case 404:
+                            commandParameters.response.console.error(
+                                `API ${commandParameters.arguments.apiName} is not installed.`);
+                            break;
                         case 409:
                             commandParameters.response.console.error(
                                 "Unable to update API, it conflicts with an existing API");
