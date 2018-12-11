@@ -1,15 +1,12 @@
 import { ICommandHandler, IHandlerParameters } from "@brightside/imperative";
 import { RequestError, StatusCodeError } from "request-promise/errors";
-import { ConnectionUtil } from "../../../connection";
+import { ZosConnectService } from "../../../api/service/ZosConnectService";
 
 export default class DeleteHandler implements ICommandHandler {
     public async process(commandParams: IHandlerParameters): Promise<void> {
         const profile = commandParams.profiles.get("zosconnect");
-        const zosConn = ConnectionUtil.getConnection(profile);
         try {
-            const service = await zosConn.getService(commandParams.arguments.serviceName);
-            await service.stop();
-            await service.delete();
+            await ZosConnectService.delete(profile, commandParams.arguments.serviceName, true);
             commandParams.response.console.log(`Successfully deleted Service ${commandParams.arguments.serviceName}`);
         } catch (error) {
             switch (error.constructor) {

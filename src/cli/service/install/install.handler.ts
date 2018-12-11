@@ -1,7 +1,7 @@
 import { ICommandHandler, IHandlerParameters } from "@brightside/imperative";
 import fs = require("fs");
 import { RequestError, StatusCodeError } from "request-promise/errors";
-import { ConnectionUtil } from "../../../connection";
+import { ZosConnectService } from "../../../api/service/ZosConnectService";
 
 export default class ServiceInstallHandler implements ICommandHandler {
     public async process(commandParameters: IHandlerParameters): Promise<void> {
@@ -9,11 +9,10 @@ export default class ServiceInstallHandler implements ICommandHandler {
         const fileBuf = fs.readFileSync(filePath);
 
         const profile = commandParameters.profiles.get("zosconnect");
-        const zosConn = ConnectionUtil.getConnection(profile);
         try {
-            const service = await zosConn.createService(fileBuf);
+            const service = await ZosConnectService.create(profile, fileBuf);
             commandParameters.response.data.setObj(service);
-            commandParameters.response.console.log(`Successfully installed Service ${service.getName()}`);
+            commandParameters.response.console.log(`Successfully installed Service ${service.name}`);
         } catch (error) {
             switch (error.constructor) {
                 case StatusCodeError:

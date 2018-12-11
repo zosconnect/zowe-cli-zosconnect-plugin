@@ -28,12 +28,10 @@ export class ZosConnectApi {
         await api.delete();
     }
 
-    public static async update(profile: IProfile, apiName: string, aarFile: Buffer, force: boolean) {
+    public static async update(profile: IProfile, apiName: string, aarFile: Buffer): Promise<Api> {
         const zosConn = ConnectionUtil.getConnection(profile);
         const api = await zosConn.getApi(apiName);
-        if (force) {
-            await api.stop();
-        }
         await api.update(aarFile);
+        return new Api(api.getApiName(), api.getVersion(), api.getDescription());
     }
 }

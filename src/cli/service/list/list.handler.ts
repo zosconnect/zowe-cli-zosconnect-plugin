@@ -1,21 +1,17 @@
 import { ICommandHandler, IHandlerParameters } from "@brightside/imperative";
 import { RequestError, StatusCodeError } from "request-promise/errors";
-import { ConnectionUtil } from "../../../connection";
+import { ZosConnectService } from "../../../api/service/ZosConnectService";
 
 export default class ServiceListHandler implements ICommandHandler {
     public async process(commandParameters: IHandlerParameters): Promise<void> {
         const profile = commandParameters.profiles.get("zosconnect");
-        const zosConn = ConnectionUtil.getConnection(profile);
         try {
-            const services = await zosConn.getServices();
-            const resultsObj = [];
+            const services = await ZosConnectService.list(profile);
             for (const service of services) {
-                resultsObj.push({name: service.getName(),
-                                 description: service.getDescription(),
-                                 provider: service.getServiceProvider()});
-                commandParameters.response.console.log(
-                    `${service.getName()} - ${service.getDescription()} [${service.getServiceProvider()}]`);
+                commandParameters.response.console.log(`${service.name} - ${service.description} ` +
+                    `[${service.serviceProvider}]`);
             }
+            commandParameters.response.data.setObj(services);
         } catch (error) {
             switch (error.constructor) {
                 case StatusCodeError:
