@@ -1,22 +1,16 @@
 import {ICommandHandler, IHandlerParameters} from "@brightside/imperative";
-import {ZosConnect} from "@zosconnect/zosconnect-node";
 import { RequestError, StatusCodeError } from "request-promise/errors";
-import { ConnectionUtil } from "../../../connection";
+import { ZosConnectApi } from "../../../api/api/ZosConnectApi";
 
 export default class ApiListHandler implements ICommandHandler {
     public async process(commandParameters: IHandlerParameters): Promise<void> {
         const profile = commandParameters.profiles.get("zosconnect");
-        const zosConn = ConnectionUtil.getConnection(profile);
         try {
-            const apis = await zosConn.getApis();
-            const resultsObj = [];
+            const apis = await ZosConnectApi.list(profile);
             for (const api of apis) {
-                resultsObj.push({name: api.getApiName(), version: api.getVersion(), description: api.getDescription()});
-                commandParameters.response.console.log(
-                    `${api.getApiName()}(${api.getVersion()}) - ${api.getDescription()}`);
+                commandParameters.response.console.log(`${api.name}(${api.version}) - ${api.description}`);
             }
-
-            commandParameters.response.data.setObj(resultsObj);
+            commandParameters.response.data.setObj(apis);
         } catch (error) {
             switch (error.constructor) {
                 case StatusCodeError:

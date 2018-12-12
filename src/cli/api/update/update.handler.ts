@@ -1,8 +1,7 @@
 import { ICommandHandler, IHandlerParameters } from "@brightside/imperative";
-import { ZosConnect } from "@zosconnect/zosconnect-node";
 import fs = require("fs");
 import { RequestError, StatusCodeError } from "request-promise/errors";
-import { ConnectionUtil } from "../../../connection";
+import { ZosConnectApi } from "../../../api/api/ZosConnectApi";
 
 export default class ApiUpdateHander implements ICommandHandler {
     public async process(commandParameters: IHandlerParameters) {
@@ -10,11 +9,9 @@ export default class ApiUpdateHander implements ICommandHandler {
         const fileBuf = fs.readFileSync(filePath);
 
         const profile = commandParameters.profiles.get("zosconnect");
-        const zosConn = ConnectionUtil.getConnection(profile);
         try {
-            const api = await zosConn.getApi(commandParameters.arguments.apiName);
-            await api.update(fileBuf);
-            commandParameters.response.console.log("Successfully updated API " + api.getApiName());
+            const api = await ZosConnectApi.update(profile, commandParameters.arguments.apiName, fileBuf);
+            commandParameters.response.console.log("Successfully updated API " + api.name);
         } catch (error) {
             switch (error.constructor) {
                 case(StatusCodeError):
@@ -26,6 +23,10 @@ export default class ApiUpdateHander implements ICommandHandler {
                         case 401:
                         case 403:
                             commandParameters.response.console.error("Security error, API was not updated");
+                            break;
+                        case 404:
+                            commandParameters.response.console.error(
+                                `API ${commandParameters.arguments.apiName} is not installed.`);
                             break;
                         case 409:
                             commandParameters.response.console.error(

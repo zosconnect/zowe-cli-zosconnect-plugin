@@ -1,7 +1,7 @@
 import { ICommandHandler, IHandlerParameters } from "@brightside/imperative";
 import fs = require("fs");
 import { RequestError, StatusCodeError } from "request-promise/errors";
-import { ConnectionUtil } from "../../../connection";
+import { ZosConnectService } from "../../../api/service/ZosConnectService";
 
 export default class UpdateHandler implements ICommandHandler {
     public async process(commandParameters: IHandlerParameters): Promise<void> {
@@ -9,11 +9,9 @@ export default class UpdateHandler implements ICommandHandler {
         const fileBuf = fs.readFileSync(filePath);
 
         const profile = commandParameters.profiles.get("zosconnect");
-        const zosConn = ConnectionUtil.getConnection(profile);
         try {
-            const service = await zosConn.getService(commandParameters.arguments.serviceName);
-            await service.update(fileBuf);
-            commandParameters.response.console.log(`Successfully updated Service ${service.getName()}`);
+            const service = await ZosConnectService.update(profile, commandParameters.arguments.serviceName, fileBuf);
+            commandParameters.response.console.log(`Successfully updated Service ${service.name}`);
         } catch (error) {
             switch (error.constructor) {
                 case(StatusCodeError):

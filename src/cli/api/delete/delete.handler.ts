@@ -1,15 +1,12 @@
 import { ICommandHandler, IHandlerParameters } from "@brightside/imperative";
 import { RequestError, StatusCodeError } from "request-promise/errors";
-import {ConnectionUtil} from "../../../connection";
+import { ZosConnectApi } from "../../../api/api/ZosConnectApi";
 
 export default class ApiDeleteHandler implements ICommandHandler {
     public async process(commandParams: IHandlerParameters) {
         const profile = commandParams.profiles.get("zosconnect");
-        const zosConn = ConnectionUtil.getConnection(profile);
         try {
-            const api = await zosConn.getApi(commandParams.arguments.apiName);
-            await api.stop();
-            await api.delete();
+            await ZosConnectApi.delete(profile, commandParams.arguments.apiName, true);
             commandParams.response.console.log("Successfully deleted API " + commandParams.arguments.apiName);
         } catch (error) {
             switch (error.constructor) {
