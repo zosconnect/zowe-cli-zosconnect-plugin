@@ -65,7 +65,7 @@ linkPluginToCli_promise(process.argv[2])
  *     1. The absolute path to your CLI's project root directory
  *        (ie the directory that contains the CLI's package.json).
  *     2. The string '-p', which will interactively prompt for your CLI directory.
- *        This scoend option is the default value.
+ *        This second option is the default value.
  *
  * @returns {Boolean} A promise containing true upon success.
  *     Otherwise, a promise containing an error.
