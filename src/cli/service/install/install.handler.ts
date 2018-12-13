@@ -10,7 +10,7 @@ export default class ServiceInstallHandler implements ICommandHandler {
 
         const profile = commandParameters.profiles.get("zosconnect");
         try {
-            const service = await ZosConnectService.create(profile, fileBuf);
+            const service = await ZosConnectService.install(profile, fileBuf);
             commandParameters.response.data.setObj(service);
             commandParameters.response.console.log(`Successfully installed Service ${service.name}`);
         } catch (error) {
