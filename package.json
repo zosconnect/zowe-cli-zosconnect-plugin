@@ -4,9 +4,11 @@
   "description": "z/OS Connect EE Plugin for Zowe CLI",
   "main": "index.js",
   "scripts": {
+    "setup": "npm install && npm config set @brightside:registry https://api.bintray.com/npm/ca/brightside && npm install -g @brightside/core@next && node scripts/linkPluginToCli `scripts/getzowelib.sh`",
     "build": "tsc",
     "prebuild": "node scripts/linkPluginToCli.js -p",
     "watch": "tsc --watch",
+    "lint": "npx tslint -p ./tsconfig.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
