@@ -1,11 +1,14 @@
 import { ICommandDefinition } from "@brightside/imperative";
+import { DeleteDefinition } from "./delete/delete.definition";
+import { InstallDefinition } from "./install/install.definition";
 import { ListDefinition } from "./list/list.definition";
+import { UpdateDefinition } from "./update/update.definition";
 
 const apiRequsterDefinition: ICommandDefinition = {
     name: "apirequester",
     type: "group",
     description: "Manage z/OS Connect EE API Requesters",
-    children: [ListDefinition],
+    children: [ListDefinition, InstallDefinition, DeleteDefinition, UpdateDefinition],
 };
 
 export = apiRequsterDefinition;

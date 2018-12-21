@@ -1,26 +1,35 @@
 import { ICommandHandler, IHandlerParameters } from "@brightside/imperative";
+import fs = require("fs");
 import { RequestError, StatusCodeError } from "request-promise/errors";
 import { ZosConnectApiRequester } from "../../../api/apirequester/ZosConnectApiRequester";
 
-export default class ApiRequesterListHandler implements ICommandHandler {
+export default class ApiRequsterInstallHandler implements ICommandHandler {
     public async process(commandParameters: IHandlerParameters): Promise<void> {
+        const filePath = commandParameters.arguments.file;
+        const fileBuf = fs.readFileSync(filePath);
+
         const profile = commandParameters.profiles.get("zosconnect");
+
         try {
-            const apiRequesters = await ZosConnectApiRequester.list(profile);
-            for (const apiRequester of apiRequesters) {
-                commandParameters.response.console.log(
-                    `${apiRequester.name}(${apiRequester.version}) - ${apiRequester.description}`);
-            }
-            commandParameters.response.data.setObj(apiRequesters);
+            const apiRequester = await ZosConnectApiRequester.install(profile, fileBuf);
+            commandParameters.response.data.setObj(apiRequester);
+            commandParameters.response.console.log(`Successfully installed API Requester ${apiRequester.name}`);
         } catch (error) {
             switch (error.constructor) {
                 case StatusCodeError:
                     const statusCodeError = error as StatusCodeError;
                     switch (statusCodeError.statusCode) {
+                        case 400:
+                            commandParameters.response.console.error(
+                                "Unable to install API Requester, invalid ARA file specified");
+                            break;
                         case 401:
                         case 403:
+                            commandParameters.response.console.error("Security error, API Requster was not installed");
+                            break;
+                        case 409:
                             commandParameters.response.console.error(
-                                "Security error, unable to display API Requesters");
+                                "Unable to install API Requester, one with the same name is already installed");
                             break;
                         default:
                             commandParameters.response.console.error(statusCodeError.message);
