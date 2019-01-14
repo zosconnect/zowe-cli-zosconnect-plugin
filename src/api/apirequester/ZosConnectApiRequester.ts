@@ -35,4 +35,16 @@ export class ZosConnectApiRequester {
         await apiRequester.update(araFile);
         return new ApiRequester(apiRequester.getName(), apiRequester.getVersion(), apiRequester.getDescription());
     }
+
+    public static async start(profile: IProfile, apiRequsterName: string): Promise<void> {
+        const zosConn = ConnectionUtil.getConnection(profile);
+        const apiRequester = await zosConn.getApiRequester(apiRequsterName);
+        await apiRequester.start();
+    }
+
+    public static async stop(profile: IProfile, apiRequesterName: string): Promise<void> {
+        const zosConn = ConnectionUtil.getConnection(profile);
+        const apiRequester = await zosConn.getApiRequester(apiRequesterName);
+        await apiRequester.stop();
+    }
 }

@@ -59,4 +59,16 @@ export class ZosConnectApi {
         await api.update(aarFile);
         return new Api(api.getApiName(), api.getVersion(), api.getDescription());
     }
+
+    public static async start(profile: IProfile, apiName: string): Promise<void> {
+        const zosConn = ConnectionUtil.getConnection(profile);
+        const api = await zosConn.getApi(apiName);
+        await api.start();
+    }
+
+    public static async stop(profile: IProfile, apiName: string): Promise<void> {
+        const zosConn = ConnectionUtil.getConnection(profile);
+        const api = await zosConn.getApi(apiName);
+        await api.stop();
+    }
 }
