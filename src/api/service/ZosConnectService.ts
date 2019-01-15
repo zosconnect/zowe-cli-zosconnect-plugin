@@ -57,8 +57,20 @@ export class ZosConnectService {
         const zosConn = ConnectionUtil.getConnection(profile);
         const service = await zosConn.getService(serviceName);
         if (force) {
-            service.stop();
+            await service.stop();
         }
         await service.delete();
+    }
+
+    public static async start(profile: IProfile, serviceName: string): Promise<void> {
+        const zosConn = ConnectionUtil.getConnection(profile);
+        const service = await zosConn.getService(serviceName);
+        await service.start();
+    }
+
+    public static async stop(profile: IProfile, serviceName: string): Promise<void> {
+        const zosConn = ConnectionUtil.getConnection(profile);
+        const service = await zosConn.getService(serviceName);
+        await service.stop();
     }
 }
