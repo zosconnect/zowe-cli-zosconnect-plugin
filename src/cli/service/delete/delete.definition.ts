@@ -11,6 +11,12 @@ export const DeleteDefinition: ICommandDefinition = {
         type: "string",
         required: true,
     }],
+    options: [{
+        name: "force",
+        type: "boolean",
+        description: "Delete the Service regardless of status.",
+        aliases: ["f"],
+    }],
     profile: {
         required: ["zosconnect"],
     },

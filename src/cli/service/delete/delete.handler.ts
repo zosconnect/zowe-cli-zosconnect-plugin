@@ -6,7 +6,7 @@ export default class DeleteHandler implements ICommandHandler {
     public async process(commandParams: IHandlerParameters): Promise<void> {
         const profile = commandParams.profiles.get("zosconnect");
         try {
-            await ZosConnectService.delete(profile, commandParams.arguments.serviceName, true);
+            await ZosConnectService.delete(profile, commandParams.arguments.serviceName, commandParams.arguments.force);
             commandParams.response.console.log(`Successfully deleted Service ${commandParams.arguments.serviceName}`);
         } catch (error) {
             switch (error.constructor) {
