@@ -6,7 +6,7 @@ export default class ApiDeleteHandler implements ICommandHandler {
     public async process(commandParams: IHandlerParameters) {
         const profile = commandParams.profiles.get("zosconnect");
         try {
-            await ZosConnectApi.delete(profile, commandParams.arguments.apiName, true);
+            await ZosConnectApi.delete(profile, commandParams.arguments.apiName, commandParams.arguments.force);
             commandParams.response.console.log("Successfully deleted API " + commandParams.arguments.apiName);
         } catch (error) {
             switch (error.constructor) {
