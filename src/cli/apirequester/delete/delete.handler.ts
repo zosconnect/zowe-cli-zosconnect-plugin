@@ -6,7 +6,8 @@ export default class ApiRequesterDeleteHandler implements ICommandHandler {
     public async process(commandParams: IHandlerParameters): Promise<void> {
         const profile = commandParams.profiles.get("zosconnect");
         try {
-            await ZosConnectApiRequester.delete(profile, commandParams.arguments.apiRequesterName, true);
+            await ZosConnectApiRequester.delete(profile, commandParams.arguments.apiRequesterName,
+                commandParams.arguments.force);
             commandParams.response.console.log(
                 `Successfully deleted API Requester ${commandParams.arguments.apiRequesterName}`);
         } catch (error) {
@@ -22,6 +23,10 @@ export default class ApiRequesterDeleteHandler implements ICommandHandler {
                         case 404:
                             commandParams.response.console.error(
                                 `API Requester ${commandParams.arguments.apiRequesterName} is not installed.`);
+                            break;
+                        case 409:
+                            commandParams.response.console.error(
+                                `API Requester ${commandParams.arguments.apiRequesterName} is started.`);
                             break;
                         default:
                             commandParams.response.console.error(statusCodeError.message);
