@@ -22,6 +22,10 @@ export default class DeleteHandler implements ICommandHandler {
                             commandParams.response.console.error(
                                 `Service ${commandParams.arguments.serviceName} is not installed.`);
                             break;
+                        case 409:
+                            commandParams.response.console.error(
+                                `Service ${commandParams.arguments.serviceName} is started.`);
+                            break;
                         default:
                             commandParams.response.console.error(statusCodeError.message);
                     }

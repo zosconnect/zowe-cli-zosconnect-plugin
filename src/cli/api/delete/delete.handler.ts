@@ -22,6 +22,10 @@ export default class ApiDeleteHandler implements ICommandHandler {
                             commandParams.response.console.error(
                                 `API ${commandParams.arguments.apiName} is not installed.`);
                             break;
+                        case 409:
+                            commandParams.response.console.error(
+                                `API ${commandParams.arguments.apiName} is started.`);
+                            break;
                         default:
                             commandParams.response.console.error(statusCodeError.message);
                     }
