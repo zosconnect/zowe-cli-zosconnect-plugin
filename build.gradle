@@ -1,0 +1,89 @@
+import groovy.json.JsonSlurper
+
+buildscript {
+	repositories{
+		maven{
+			url 'https://plugins.gradle.org/m2'
+		}
+	}
+	dependencies{
+		classpath "com.moowork.gradle:gradle-node-plugin:1.2.0"
+	}
+}
+
+apply plugin: 'com.moowork.node'
+
+node {
+	// Version of node to use.
+	version = '8.11.0'
+
+	download true
+	
+	// Set the work directory for unpacking node
+ 	workDir = file("${project.buildDir}/nodejs")
+
+    // Set the work directory where node_modules should be located
+  	nodeModulesDir = file("${project.projectDir}")
+}
+
+task npm_clean(type: Delete) {
+	delete file('node_modules')
+	delete file('package-lock.json')
+}
+
+task npm_configure(type: NpmTask) {
+  args = ['config', 'set', '@brightside:registry', 'https://api.bintray.com/npm/ca/brightside']
+}
+
+npm_update {
+	args = ['--no-optional', '--loglevel', 'warn']
+}
+npm_update.dependsOn += [npm_configure]
+
+task clean(type: Delete) {
+	delete 'build'
+	delete 'lib'
+	delete 'dist'
+}
+
+task build(type: NpmTask, dependsOn: npmInstall) {
+  args = ['run', 'build']
+  doLast{
+  	 def packageJson = (new JsonSlurper()).parseText( file('package.json').text )
+  	 def zipName = "${packageJson.name}-${packageJson.version}-SNAPSHOT.zip".replaceAll('@','').replaceAll('/','-')
+     ant.zip(destfile: "dist/${zipName}", basedir: '.', includes: 'lib/**/*,package.json')
+  }
+}
+
+task installGeneral(type: NpmTask) {
+  // install the $npm_modile package only
+  args = ['install', "$npm_module", '--save']
+  
+  onlyIf{
+  	project.hasProperty('npm_module')
+  }
+}
+
+task installDev(type: NpmTask) {
+  // install the $npm_modile package only
+  args = ['install', "$npm_module", '--save-dev']
+  
+  onlyIf{
+  	project.hasProperty('npm_module')
+  }
+}
+
+//Inject npm_update conditionally
+if( !project.getGradle().getStartParameter().isOffline() ){
+	project.tasks.withType(NodeTask).each{task->
+		if(!task.name.startsWith('npm_')){
+			task.dependsOn += [npm_update]
+		}
+	}
+	
+	project.tasks.withType(NpmTask).each{task->
+		if(!task.name.startsWith('npm_')){
+			task.dependsOn += [npm_update]
+		}
+	}
+}//if
