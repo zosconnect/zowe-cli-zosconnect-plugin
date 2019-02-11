@@ -1,0 +1,27 @@
+run:
+  list:
+    command: 'zowe zosconnect api list'
+    expectCode: 0
+    outputContains:
+      - 'catalog'
+    outputDoesntContain:
+      - /[Ee]rror/
+  install:
+    prerequisiteCwd: .
+    prerequisites:
+      - zowe zosconnect api delete -f catalog
+    command: zowe zosconnect api install ./artefacts/catalog.aar
+    cwd: './tests'
+    expectCode: 0
+    outputContains:
+      - 'Successfully installed API'
+    outputDoesntContain:
+      - /[Ee]rror/
+      - 'Unable'
+  deleteNotStopped:
+    command: 'zowe zosconnect api delete catalog'
+    expectCode: 0
+    outputContains:
+      - API catalog is started.
+    outputDoesntContain:
+      - Successfully deleted API catalog
