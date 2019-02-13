@@ -46,7 +46,7 @@ const config: IImperativeConfig = {
             required: ["address"],
         },
     }],
-    pluginHealthCheck: __dirname + "/healthcheck.handler",
+    pluginHealthCheck: __dirname + "/healthCheck.handler",
 };
 
 export = config;
