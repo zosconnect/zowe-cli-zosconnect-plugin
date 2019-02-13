@@ -9,3 +9,5 @@ before_script:
   - npm run build
 script:
   - npm run lint
+  - npm pack
+  - npm run pluginInstall
