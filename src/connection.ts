@@ -7,6 +7,7 @@ export class ConnectionUtil {
         const options = {} as request.OptionsWithUri;
         options.uri = profile.address;
         if (profile.user !== undefined) {
+            options.auth = {} as request.AuthOptions;
             options.auth.user = profile.user;
             options.auth.pass = profile.password;
         }
