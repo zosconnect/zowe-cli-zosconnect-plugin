@@ -2,6 +2,7 @@ import { ICommandHandler, IHandlerParameters } from "@brightside/imperative";
 import fs = require("fs");
 import { RequestError, StatusCodeError } from "request-promise/errors";
 import { ZosConnectApiRequester } from "../../../api/apirequester/ZosConnectApiRequester";
+import { ConnectionUtil } from "../../../connection";
 
 export default class ApiRequsterInstallHandler implements ICommandHandler {
     public async process(commandParameters: IHandlerParameters): Promise<void> {
@@ -9,9 +10,9 @@ export default class ApiRequsterInstallHandler implements ICommandHandler {
         const fileBuf = fs.readFileSync(filePath);
 
         const profile = commandParameters.profiles.get("zosconnect");
-
+        const session = ConnectionUtil.getSession(profile);
         try {
-            const apiRequester = await ZosConnectApiRequester.install(profile, fileBuf);
+            const apiRequester = await ZosConnectApiRequester.install(session, fileBuf);
             commandParameters.response.data.setObj(apiRequester);
             commandParameters.response.console.log(`Successfully installed API Requester ${apiRequester.name}`);
         } catch (error) {

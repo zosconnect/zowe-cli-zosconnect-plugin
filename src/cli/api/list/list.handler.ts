@@ -1,12 +1,16 @@
 import {ICommandHandler, IHandlerParameters} from "@brightside/imperative";
 import { RequestError, StatusCodeError } from "request-promise/errors";
 import { ZosConnectApi } from "../../../api/api/ZosConnectApi";
+import { ConnectionUtil } from "../../../connection";
 
 export default class ApiListHandler implements ICommandHandler {
     public async process(commandParameters: IHandlerParameters): Promise<void> {
+        // tslint:disable-next-line
+        console.log(commandParameters.arguments);
         const profile = commandParameters.profiles.get("zosconnect");
+        const session = ConnectionUtil.getSession(profile);
         try {
-            const apis = await ZosConnectApi.list(profile);
+            const apis = await ZosConnectApi.list(session);
             for (const api of apis) {
                 commandParameters.response.console.log(`${api.name}(${api.version}) - ${api.description}`);
             }

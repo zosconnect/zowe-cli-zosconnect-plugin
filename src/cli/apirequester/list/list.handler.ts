@@ -1,12 +1,14 @@
 import { ICommandHandler, IHandlerParameters } from "@brightside/imperative";
 import { RequestError, StatusCodeError } from "request-promise/errors";
 import { ZosConnectApiRequester } from "../../../api/apirequester/ZosConnectApiRequester";
+import { ConnectionUtil } from "../../../connection";
 
 export default class ApiRequesterListHandler implements ICommandHandler {
     public async process(commandParameters: IHandlerParameters): Promise<void> {
         const profile = commandParameters.profiles.get("zosconnect");
+        const session = ConnectionUtil.getSession(profile);
         try {
-            const apiRequesters = await ZosConnectApiRequester.list(profile);
+            const apiRequesters = await ZosConnectApiRequester.list(session);
             for (const apiRequester of apiRequesters) {
                 commandParameters.response.console.log(
                     `${apiRequester.name}(${apiRequester.version}) - ${apiRequester.description}`);

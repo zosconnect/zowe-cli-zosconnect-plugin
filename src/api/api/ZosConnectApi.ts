@@ -1,5 +1,5 @@
-import { IProfile } from "@brightside/imperative";
 import { ConnectionUtil } from "../../connection";
+import { ZosConnectSession } from "../../ZosConnectSession";
 import { Api } from "./Api";
 
 export class ZosConnectApi {
@@ -9,8 +9,8 @@ export class ZosConnectApi {
      * @param profile The IProfile to use for connection information.
      * @param aarFile The AAR file to be installed.
      */
-    public static async install(profile: IProfile, aarFile: Buffer): Promise<Api> {
-        const zosConn = ConnectionUtil.getConnection(profile);
+    public static async install(session: ZosConnectSession, aarFile: Buffer): Promise<Api> {
+        const zosConn = ConnectionUtil.getConnection(session);
         const api = await zosConn.createApi(aarFile);
         return new Api(api.getApiName(), api.getVersion(), api.getDescription());
     }
@@ -20,8 +20,8 @@ export class ZosConnectApi {
      *
      * @param profile The IProfile to use for connection information.
      */
-    public static async list(profile: IProfile): Promise<Api[]> {
-        const zosConn = ConnectionUtil.getConnection(profile);
+    public static async list(session: ZosConnectSession): Promise<Api[]> {
+        const zosConn = ConnectionUtil.getConnection(session);
         const installedApis = await zosConn.getApis();
         const apis = [];
         for (const api of installedApis) {
@@ -37,8 +37,8 @@ export class ZosConnectApi {
      * @param apiName The name of the API to delete.
      * @param force Whether the API should be deleted regardless of status.
      */
-    public static async delete(profile: IProfile, apiName: string, force: boolean): Promise<void> {
-        const zosConn = ConnectionUtil.getConnection(profile);
+    public static async delete(session: ZosConnectSession, apiName: string, force: boolean): Promise<void> {
+        const zosConn = ConnectionUtil.getConnection(session);
         const api = await zosConn.getApi(apiName);
         if (force) {
             await api.stop();
@@ -53,21 +53,21 @@ export class ZosConnectApi {
      * @param apiName The name of the API to update.
      * @param aarFile The AAR file containing the updated API information.
      */
-    public static async update(profile: IProfile, apiName: string, aarFile: Buffer): Promise<Api> {
-        const zosConn = ConnectionUtil.getConnection(profile);
+    public static async update(session: ZosConnectSession, apiName: string, aarFile: Buffer): Promise<Api> {
+        const zosConn = ConnectionUtil.getConnection(session);
         const api = await zosConn.getApi(apiName);
         await api.update(aarFile);
         return new Api(api.getApiName(), api.getVersion(), api.getDescription());
     }
 
-    public static async start(profile: IProfile, apiName: string): Promise<void> {
-        const zosConn = ConnectionUtil.getConnection(profile);
+    public static async start(session: ZosConnectSession, apiName: string): Promise<void> {
+        const zosConn = ConnectionUtil.getConnection(session);
         const api = await zosConn.getApi(apiName);
         await api.start();
     }
 
-    public static async stop(profile: IProfile, apiName: string): Promise<void> {
-        const zosConn = ConnectionUtil.getConnection(profile);
+    public static async stop(session: ZosConnectSession, apiName: string): Promise<void> {
+        const zosConn = ConnectionUtil.getConnection(session);
         const api = await zosConn.getApi(apiName);
         await api.stop();
     }
