@@ -1,15 +1,15 @@
-import { IProfile } from "@brightside/imperative";
 import { ConnectionUtil } from "../../connection";
+import { ZosConnectSession } from "../../ZosConnectSession";
 import { Service } from "./Service";
 
 export class ZosConnectService {
     /**
      * Get a list of the Services installed in the server.
      *
-     * @param profile The IProfile to use for connection information.
+     * @param session The session to use for connection information.
      */
-    public static async list(profile: IProfile): Promise<Service[]> {
-        const zosConn = ConnectionUtil.getConnection(profile);
+    public static async list(session: ZosConnectSession): Promise<Service[]> {
+        const zosConn = ConnectionUtil.getConnection(session);
         const services = await zosConn.getServices();
         const resultsObj = [];
         for (const service of services) {
@@ -23,11 +23,11 @@ export class ZosConnectService {
     /**
      * Install a new service into the Server.
      *
-     * @param profile The IProfile to use for connection information.
+     * @param session The session to use for connection information.
      * @param sarFile The SAR file to install.
      */
-    public static async install(profile: IProfile, sarFile: Buffer): Promise<Service> {
-        const zosConn = ConnectionUtil.getConnection(profile);
+    public static async install(session: ZosConnectSession, sarFile: Buffer): Promise<Service> {
+        const zosConn = ConnectionUtil.getConnection(session);
         const service = await zosConn.createService(sarFile);
         return new Service(service.getName(), service.getDescription(), service.getServiceProvider());
     }
@@ -35,12 +35,12 @@ export class ZosConnectService {
     /**
      * Update the named Service.
      *
-     * @param profile The IProfile to use for connection information.
+     * @param session The Isession to use for connection information.
      * @param serviceName The name of the Service to update.
      * @param sarFile The SAR file containing the new Service information.
      */
-    public static async update(profile: IProfile, serviceName: string, sarFile: Buffer): Promise<Service> {
-        const zosConn = ConnectionUtil.getConnection(profile);
+    public static async update(session: ZosConnectSession, serviceName: string, sarFile: Buffer): Promise<Service> {
+        const zosConn = ConnectionUtil.getConnection(session);
         const service = await zosConn.getService(serviceName);
         await service.update(sarFile);
         return new Service(service.getName(), service.getDescription(), service.getServiceProvider());
@@ -49,12 +49,12 @@ export class ZosConnectService {
     /**
      * Delete the named Service from the server.
      *
-     * @param profile The IProfile to use for connection information.
+     * @param session The Isession to use for connection information.
      * @param serviceName The name of the Service to delete.
      * @param force Whether the Service should be deleted regardless of status.
      */
-    public static async delete(profile: IProfile, serviceName: string, force: boolean): Promise<void> {
-        const zosConn = ConnectionUtil.getConnection(profile);
+    public static async delete(session: ZosConnectSession, serviceName: string, force: boolean): Promise<void> {
+        const zosConn = ConnectionUtil.getConnection(session);
         const service = await zosConn.getService(serviceName);
         if (force) {
             await service.stop();
@@ -62,14 +62,14 @@ export class ZosConnectService {
         await service.delete();
     }
 
-    public static async start(profile: IProfile, serviceName: string): Promise<void> {
-        const zosConn = ConnectionUtil.getConnection(profile);
+    public static async start(session: ZosConnectSession, serviceName: string): Promise<void> {
+        const zosConn = ConnectionUtil.getConnection(session);
         const service = await zosConn.getService(serviceName);
         await service.start();
     }
 
-    public static async stop(profile: IProfile, serviceName: string): Promise<void> {
-        const zosConn = ConnectionUtil.getConnection(profile);
+    public static async stop(session: ZosConnectSession, serviceName: string): Promise<void> {
+        const zosConn = ConnectionUtil.getConnection(session);
         const service = await zosConn.getService(serviceName);
         await service.stop();
     }

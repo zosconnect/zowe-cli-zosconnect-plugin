@@ -1,12 +1,14 @@
 import { ICommandHandler, IHandlerParameters } from "@brightside/imperative";
 import { RequestError, StatusCodeError } from "request-promise/errors";
 import { ZosConnectApiRequester } from "../../../api/apirequester/ZosConnectApiRequester";
+import { ConnectionUtil } from "../../../connection";
 
 export default class ApiRequesterDeleteHandler implements ICommandHandler {
     public async process(commandParams: IHandlerParameters): Promise<void> {
         const profile = commandParams.profiles.get("zosconnect");
+        const session = ConnectionUtil.getSession(profile);
         try {
-            await ZosConnectApiRequester.delete(profile, commandParams.arguments.apiRequesterName,
+            await ZosConnectApiRequester.delete(session, commandParams.arguments.apiRequesterName,
                 commandParams.arguments.force);
             commandParams.response.console.log(
                 `Successfully deleted API Requester ${commandParams.arguments.apiRequesterName}`);
