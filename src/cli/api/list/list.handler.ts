@@ -5,8 +5,6 @@ import { ConnectionUtil } from "../../../connection";
 
 export default class ApiListHandler implements ICommandHandler {
     public async process(commandParameters: IHandlerParameters): Promise<void> {
-        // tslint:disable-next-line
-        console.log(commandParameters.arguments);
         const profile = commandParameters.profiles.get("zosconnect");
         const session = ConnectionUtil.getSession(profile);
         try {
@@ -29,7 +27,7 @@ export default class ApiListHandler implements ICommandHandler {
                     }
                     break;
                 case RequestError:
-                    commandParameters.response.console.error(`Unable to connect to ${profile.name}`);
+                    commandParameters.response.console.error(`Unable to connect to ${session.address}`);
                     break;
                 default:
                     commandParameters.response.console.error(error);

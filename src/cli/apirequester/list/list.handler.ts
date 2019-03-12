@@ -29,7 +29,7 @@ export default class ApiRequesterListHandler implements ICommandHandler {
                     }
                     break;
                 case RequestError:
-                    commandParameters.response.console.error(`Unable to connect to ${profile.name}`);
+                    commandParameters.response.console.error(`Unable to connect to ${session.address}`);
                     break;
                 default:
                     commandParameters.response.console.error(error);
