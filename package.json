@@ -10,7 +10,7 @@
     "watch": "tsc --watch",
     "lint": "npx tslint -p ./tsconfig.json",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "pluginInstall": "zowe plugins install ./zosconnect-zowe-cli-1.0.0-beta1.tgz"
+    "pluginInstall": "zowe plugins install ./zosconnect-zowe-cli-$npm_package_version.tgz"
   },
   "keywords": [
     "zowe",
@@ -19,7 +19,7 @@
   "author": "Andrew Smithson",
   "license": "EPL-2.0",
   "dependencies": {
-    "@zosconnect/zosconnect-node": "^3.0.1"
+    "@zosconnect/zosconnect-node": "^3.3.0"
   },
   "peerDependencies": {
     "@brightside/core": ">=2.0.0-0",
@@ -29,9 +29,9 @@
     "configurationModule": "lib/imperative.js"
   },
   "devDependencies": {
-    "@types/node": "^10.12.9",
-    "tslint": "^5.11.0",
-    "typescript": "^3.2.1"
+    "@types/node": "^10.12.30",
+    "tslint": "^5.13.1",
+    "typescript": "^3.3.3333"
   },
   "repository": {
     "type": "git",
