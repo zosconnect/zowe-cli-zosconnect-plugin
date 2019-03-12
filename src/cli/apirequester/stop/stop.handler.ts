@@ -29,7 +29,7 @@ export default class ServiceStartHandler implements ICommandHandler {
                     }
                     break;
                 case RequestError:
-                    commandParams.response.console.error(`Unable to connect to ${profile.name}`);
+                    commandParams.response.console.error(`Unable to connect to ${session.address}`);
                     break;
                 default:
                     commandParams.response.console.error(error);
