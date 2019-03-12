@@ -1,5 +1,5 @@
 {
-  "name": "zosconnect-zowe-cli",
+  "name": "@zosconnect/zosconnect-zowe-cli",
   "version": "1.0.0-beta1",
   "description": "z/OS Connect EE Plugin for Zowe CLI",
   "main": "lib/index.js",
