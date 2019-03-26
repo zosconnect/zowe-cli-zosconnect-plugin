@@ -7,7 +7,13 @@ import { ConnectionUtil } from "../../../connection";
 export default class ServiceInstallHandler implements ICommandHandler {
     public async process(commandParameters: IHandlerParameters): Promise<void> {
         const filePath = commandParameters.arguments.file;
-        const fileBuf = fs.readFileSync(filePath);
+        let fileBuf;
+        try {
+            fileBuf = fs.readFileSync(filePath);
+        } catch (error) {
+            commandParameters.response.console.error(`Unable to load SAR file (${error.message})`);
+            return;
+        }
 
         const profile = commandParameters.profiles.get("zosconnect");
         const session = ConnectionUtil.getSession(profile);
