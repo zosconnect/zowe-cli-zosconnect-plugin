@@ -73,3 +73,5 @@ typings/
 .serverless
 
 lib
+
+.vscode/

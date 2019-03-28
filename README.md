@@ -30,6 +30,8 @@ The Zowe CLI needs to be [installed](https://zowe.github.io/docs-site/latest/use
 
 `zowe zosconnect api delete <API name> [-f]`
 
+If you specify `-f` option then the CLI will stop the API before deleting it.
+
 ### Start an API
 
 `zowe zosconnect api start <API name>`
@@ -37,8 +39,6 @@ The Zowe CLI needs to be [installed](https://zowe.github.io/docs-site/latest/use
 ### Stop an API
 
 `zowe zosconnect api stop <API name>`
-
-If you specify `-f` option then the CLI will stop the API before deleting it.
 
 ## Working with Services
 
