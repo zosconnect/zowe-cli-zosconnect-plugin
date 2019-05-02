@@ -1,14 +1,12 @@
-import { ICommandHandler, IHandlerParameters } from "@brightside/imperative";
+import { IHandlerParameters } from "@brightside/imperative";
 import { RequestError, StatusCodeError } from "request-promise/errors";
 import { ZosConnectApi } from "../../../api/api/ZosConnectApi";
-import { ConnectionUtil } from "../../../connection";
+import { ZosConnectBaseHandler } from "../../ZosConnectBaseHandler";
 
-export default class ApiStartHandler implements ICommandHandler {
-    public async process(commandParams: IHandlerParameters): Promise<void> {
-        const profile = commandParams.profiles.get("zosconnect");
-        const session = ConnectionUtil.getSession(profile);
+export default class ApiStartHandler extends ZosConnectBaseHandler {
+    public async processCmd(commandParams: IHandlerParameters): Promise<void> {
         try {
-            await ZosConnectApi.stop(session, commandParams.arguments.apiName);
+            await ZosConnectApi.stop(this.session, commandParams.arguments.apiName);
             commandParams.response.console.log(`Successfully started API ${commandParams.arguments.apiName}`);
         } catch (error) {
             switch (error.constructor) {
@@ -29,7 +27,7 @@ export default class ApiStartHandler implements ICommandHandler {
                     }
                     break;
                 case RequestError:
-                    commandParams.response.console.error(`Unable to connect to ${session.address}`);
+                    commandParams.response.console.error(`Unable to connect to ${this.session.address}`);
                     break;
                 default:
                     commandParams.response.console.error(error);

@@ -1,14 +1,12 @@
-import { ICommandHandler, IHandlerParameters } from "@brightside/imperative";
+import { IHandlerParameters } from "@brightside/imperative";
 import { RequestError, StatusCodeError } from "request-promise/errors";
 import { ZosConnectApi } from "../../../api/api/ZosConnectApi";
-import { ConnectionUtil } from "../../../connection";
+import { ZosConnectBaseHandler } from "../../ZosConnectBaseHandler";
 
-export default class ApiDeleteHandler implements ICommandHandler {
-    public async process(commandParams: IHandlerParameters) {
-        const profile = commandParams.profiles.get("zosconnect");
-        const session = ConnectionUtil.getSession(profile);
+export default class ApiDeleteHandler extends ZosConnectBaseHandler {
+    public async processCmd(commandParams: IHandlerParameters) {
         try {
-            await ZosConnectApi.delete(session, commandParams.arguments.apiName, commandParams.arguments.force);
+            await ZosConnectApi.delete(this.session, commandParams.arguments.apiName, commandParams.arguments.force);
             commandParams.response.console.log("Successfully deleted API " + commandParams.arguments.apiName);
         } catch (error) {
             switch (error.constructor) {
@@ -33,7 +31,7 @@ export default class ApiDeleteHandler implements ICommandHandler {
                     }
                     break;
                 case RequestError:
-                    commandParams.response.console.error(`Unable to connect to ${session.address}`);
+                    commandParams.response.console.error(`Unable to connect to ${this.session.address}`);
                     break;
                 default:
                     commandParams.response.console.error(error);
