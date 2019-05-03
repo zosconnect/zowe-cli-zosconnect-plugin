@@ -1,11 +1,11 @@
-import { ICommandHandler, IHandlerParameters } from "@brightside/imperative";
+import { IHandlerParameters } from "@brightside/imperative";
 import fs = require("fs");
 import { RequestError, StatusCodeError } from "request-promise/errors";
 import { ZosConnectService } from "../../../api/service/ZosConnectService";
-import { ConnectionUtil } from "../../../connection";
+import { ZosConnectBaseHandler } from "../../ZosConnectBaseHandler";
 
-export default class UpdateHandler implements ICommandHandler {
-    public async process(commandParameters: IHandlerParameters): Promise<void> {
+export default class UpdateHandler extends ZosConnectBaseHandler {
+    public async processCmd(commandParameters: IHandlerParameters): Promise<void> {
         const filePath = commandParameters.arguments.file;
         let fileBuf;
         try {
@@ -15,10 +15,9 @@ export default class UpdateHandler implements ICommandHandler {
             return;
         }
 
-        const profile = commandParameters.profiles.get("zosconnect");
-        const session = ConnectionUtil.getSession(profile);
         try {
-            const service = await ZosConnectService.update(session, commandParameters.arguments.serviceName, fileBuf);
+            const service = await ZosConnectService.update(this.session, commandParameters.arguments.serviceName,
+                fileBuf);
             commandParameters.response.console.log(`Successfully updated Service ${service.name}`);
         } catch (error) {
             switch (error.constructor) {
@@ -41,7 +40,7 @@ export default class UpdateHandler implements ICommandHandler {
                     }
                     break;
                 case RequestError:
-                    commandParameters.response.console.error(`Unable to connect to ${session.address}`);
+                    commandParameters.response.console.error(`Unable to connect to ${this.session.address}`);
                     break;
                 default:
                     commandParameters.response.console.error(error);
