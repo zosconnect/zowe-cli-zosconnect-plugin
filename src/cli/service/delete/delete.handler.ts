@@ -1,14 +1,13 @@
-import { ICommandHandler, IHandlerParameters } from "@brightside/imperative";
+import { IHandlerParameters } from "@brightside/imperative";
 import { RequestError, StatusCodeError } from "request-promise/errors";
 import { ZosConnectService } from "../../../api/service/ZosConnectService";
-import { ConnectionUtil } from "../../../connection";
+import { ZosConnectBaseHandler } from "../../ZosConnectBaseHandler";
 
-export default class DeleteHandler implements ICommandHandler {
-    public async process(commandParams: IHandlerParameters): Promise<void> {
-        const profile = commandParams.profiles.get("zosconnect");
-        const session = ConnectionUtil.getSession(profile);
+export default class DeleteHandler extends ZosConnectBaseHandler {
+    public async processCmd(commandParams: IHandlerParameters): Promise<void> {
         try {
-            await ZosConnectService.delete(session, commandParams.arguments.serviceName, commandParams.arguments.force);
+            await ZosConnectService.delete(this.session, commandParams.arguments.serviceName,
+                commandParams.arguments.force);
             commandParams.response.console.log(`Successfully deleted Service ${commandParams.arguments.serviceName}`);
         } catch (error) {
             switch (error.constructor) {
@@ -33,7 +32,7 @@ export default class DeleteHandler implements ICommandHandler {
                     }
                     break;
                 case RequestError:
-                    commandParams.response.console.error(`Unable to connect to ${session.address}`);
+                    commandParams.response.console.error(`Unable to connect to ${this.session.address}`);
                     break;
                 default:
                     commandParams.response.console.error(error);

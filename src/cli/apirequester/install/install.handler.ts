@@ -1,11 +1,11 @@
-import { ICommandHandler, IHandlerParameters } from "@brightside/imperative";
+import { IHandlerParameters } from "@brightside/imperative";
 import fs = require("fs");
 import { RequestError, StatusCodeError } from "request-promise/errors";
 import { ZosConnectApiRequester } from "../../../api/apirequester/ZosConnectApiRequester";
-import { ConnectionUtil } from "../../../connection";
+import { ZosConnectBaseHandler } from "../../ZosConnectBaseHandler";
 
-export default class ApiRequsterInstallHandler implements ICommandHandler {
-    public async process(commandParameters: IHandlerParameters): Promise<void> {
+export default class ApiRequsterInstallHandler extends ZosConnectBaseHandler {
+    public async processCmd(commandParameters: IHandlerParameters): Promise<void> {
         const filePath = commandParameters.arguments.file;
         let fileBuf;
         try {
@@ -15,10 +15,8 @@ export default class ApiRequsterInstallHandler implements ICommandHandler {
             return;
         }
 
-        const profile = commandParameters.profiles.get("zosconnect");
-        const session = ConnectionUtil.getSession(profile);
         try {
-            const apiRequester = await ZosConnectApiRequester.install(session, fileBuf);
+            const apiRequester = await ZosConnectApiRequester.install(this.session, fileBuf);
             commandParameters.response.data.setObj(apiRequester);
             commandParameters.response.console.log(`Successfully installed API Requester ${apiRequester.name}`);
         } catch (error) {
@@ -43,7 +41,7 @@ export default class ApiRequsterInstallHandler implements ICommandHandler {
                     }
                     break;
                 case RequestError:
-                    commandParameters.response.console.error(`Unable to connect to ${session.address}`);
+                    commandParameters.response.console.error(`Unable to connect to ${this.session.address}`);
                     break;
                 default:
                     commandParameters.response.console.error(error);

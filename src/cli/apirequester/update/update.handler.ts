@@ -1,11 +1,11 @@
-import { ICommandHandler, IHandlerParameters } from "@brightside/imperative";
+import { IHandlerParameters } from "@brightside/imperative";
 import fs = require("fs");
 import { RequestError, StatusCodeError } from "request-promise/errors";
 import { ZosConnectApiRequester } from "../../../api/apirequester/ZosConnectApiRequester";
-import { ConnectionUtil } from "../../../connection";
+import { ZosConnectBaseHandler } from "../../ZosConnectBaseHandler";
 
-export default class ApiRequesterUpdateHander implements ICommandHandler {
-    public async process(commandParameters: IHandlerParameters) {
+export default class ApiRequesterUpdateHander extends ZosConnectBaseHandler {
+    public async processCmd(commandParameters: IHandlerParameters) {
         const filePath = commandParameters.arguments.file;
         let fileBuf;
         try {
@@ -15,10 +15,8 @@ export default class ApiRequesterUpdateHander implements ICommandHandler {
             return;
         }
 
-        const profile = commandParameters.profiles.get("zosconnect");
-        const session = ConnectionUtil.getSession(profile);
         try {
-            const apiRequester = await ZosConnectApiRequester.update(session,
+            const apiRequester = await ZosConnectApiRequester.update(this.session,
                 commandParameters.arguments.apiRequesterName, fileBuf);
             commandParameters.response.console.log("Successfully updated API " + apiRequester.name);
         } catch (error) {
@@ -46,7 +44,7 @@ export default class ApiRequesterUpdateHander implements ICommandHandler {
                     }
                     break;
                 case RequestError:
-                    commandParameters.response.console.error(`Unable to connect to ${session.address}`);
+                    commandParameters.response.console.error(`Unable to connect to ${this.session.address}`);
                     break;
                 default:
                     commandParameters.response.console.error(error);
