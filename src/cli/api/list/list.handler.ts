@@ -7,9 +7,11 @@ export default class ApiListHandler extends ZosConnectBaseHandler {
     public async processCmd(commandParameters: IHandlerParameters): Promise<void> {
         try {
             const apis = await ZosConnectApi.list(this.session);
-            for (const api of apis) {
-                commandParameters.response.console.log(`${api.name}(${api.version}) - ${api.description}`);
-            }
+            commandParameters.response.format.output({
+                fields: ["name", "version", "description"],
+                format: "table",
+                output: apis,
+            });
             commandParameters.response.data.setObj(apis);
         } catch (error) {
             switch (error.constructor) {

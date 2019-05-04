@@ -7,10 +7,11 @@ export default class ApiRequesterListHandler extends ZosConnectBaseHandler {
     public async processCmd(commandParameters: IHandlerParameters): Promise<void> {
         try {
             const apiRequesters = await ZosConnectApiRequester.list(this.session);
-            for (const apiRequester of apiRequesters) {
-                commandParameters.response.console.log(
-                    `${apiRequester.name}(${apiRequester.version}) - ${apiRequester.description}`);
-            }
+            commandParameters.response.format.output({
+                fields: ["name", "version", "description"],
+                format: "table",
+                output: apiRequesters,
+            });
             commandParameters.response.data.setObj(apiRequesters);
         } catch (error) {
             switch (error.constructor) {
