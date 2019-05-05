@@ -43,6 +43,9 @@ export default class ApiRequsterInstallHandler extends ZosConnectBaseHandler {
                         case 403:
                             commandParameters.response.console.error("Security error, API Requster was not installed");
                             break;
+                        case 404:
+                            commandParameters.response.console.error("API Requester feature is not enabled");
+                            break;
                         case 409:
                             commandParameters.response.console.error(
                                 "Unable to install API Requester, one with the same name is already installed");

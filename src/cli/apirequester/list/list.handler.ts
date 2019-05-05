@@ -34,6 +34,9 @@ export default class ApiRequesterListHandler extends ZosConnectBaseHandler {
                             commandParameters.response.console.error(
                                 "Security error, unable to display API Requesters");
                             break;
+                        case 404:
+                            commandParameters.response.console.error("API Requester feature is not enabled");
+                            break;
                         default:
                             commandParameters.response.console.error(statusCodeError.message);
                     }
