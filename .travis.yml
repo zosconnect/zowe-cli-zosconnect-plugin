@@ -4,10 +4,12 @@ node_js:
   - node
   - lts/*
   - '8'
-before_script:
+before_install:
   - npm run setup
+before_script:
   - npm run build
 script:
+  - npm test
   - npm run lint
   - npm pack
   - npm run pluginInstall
