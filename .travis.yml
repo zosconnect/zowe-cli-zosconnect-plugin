@@ -5,9 +5,9 @@ node_js:
   - lts/*
   - '8'
 before_script:
-  - npm run setup
   - npm run build
 script:
+  - npm test
   - npm run lint
   - npm pack
   - npm run pluginInstall
