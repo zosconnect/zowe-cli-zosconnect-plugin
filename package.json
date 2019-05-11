@@ -4,12 +4,11 @@
   "description": "z/OS Connect EE Plugin for Zowe CLI",
   "main": "lib/index.js",
   "scripts": {
-    "setup": "npm install && npm config set @brightside:registry https://api.bintray.com/npm/ca/brightside && npm install -g @brightside/core@next && node scripts/linkPluginToCli `scripts/getzowelib.sh`",
+    "setup": "npm install && npm config set @brightside:registry https://api.bintray.com/npm/ca/brightside",
     "build": "tsc",
-    "prebuild": "node scripts/linkPluginToCli.js -p",
     "watch": "tsc --watch",
     "lint": "npx tslint -p ./tsconfig.json",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --coverage",
     "pluginInstall": "zowe plugins install ./zosconnect-zosconnect-zowe-cli-$npm_package_version.tgz"
   },
   "keywords": [
@@ -21,17 +20,18 @@
   "dependencies": {
     "@zosconnect/zosconnect-node": "^3.3.0"
   },
-  "peerDependencies": {
-    "@brightside/core": ">=2.0.0-0",
-    "@brightside/imperative": ">=2.0.0-0"
-  },
   "imperative": {
     "configurationModule": "lib/imperative.js"
   },
   "devDependencies": {
-    "@types/node": "^10.12.30",
-    "tslint": "^5.13.1",
-    "typescript": "^3.3.3333"
+    "@brightside/core": ">=2.0.0-0",
+    "@brightside/imperative": ">=2.0.0-0",
+    "@types/jest": "^24.0.12",
+    "@types/node": "^10.14.6",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2",
+    "tslint": "^5.16.0",
+    "typescript": "^3.4.5"
   },
   "repository": {
     "type": "git",
