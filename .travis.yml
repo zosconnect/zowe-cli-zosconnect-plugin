@@ -4,6 +4,8 @@ node_js:
   - node
   - lts/*
   - '8'
+before_install:
+  - npm run setup
 before_script:
   - npm run build
 script:
