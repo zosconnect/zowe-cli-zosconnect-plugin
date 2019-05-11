@@ -4,7 +4,7 @@
   "description": "z/OS Connect EE Plugin for Zowe CLI",
   "main": "lib/index.js",
   "scripts": {
-    "setup": "npm install && npm config set @brightside:registry https://api.bintray.com/npm/ca/brightside",
+    "setup": "npm config set @brightside:registry https://api.bintray.com/npm/ca/brightside",
     "build": "tsc",
     "watch": "tsc --watch",
     "lint": "npx tslint -p ./tsconfig.json",
