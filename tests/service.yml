@@ -1,0 +1,49 @@
+run:
+  list:
+    command: zowe zosconnect service list
+    expectCode: 0
+    outputContains:
+      - placeOrder
+    outputDoesntContain:
+      - /[Ee]rror/
+  install:
+    prerequisiteCwd: .
+    prerequisites:
+      - zowe zosconnect service delete -f placeOrder
+    command: zowe zosconnect service install ./artefacts/placeOrder.sar
+    cwd: ./tests
+    expectCode: 0
+    outputContains:
+      - Successfully installed Service
+    outputDoesntContain:
+      - /[Ee]rror/
+      - Unable
+  deleteNotStopped:
+    command: zowe zosconnect service delete placeOrder
+    expectCode: 0
+    outputContains:
+      - Service placeOrder is started
+    outputDoesntContain:
+      - Successfully
+  update:
+    command: zowe zosconnect service update placeOrder ./artefacts/placeOrder.sar
+    cwd: ./tests
+    expectCode: 0
+    outputContains:
+      - Successfully updated Service placeOrder
+    outputDoesntContain:
+      - /[Ee]rror/
+  start:
+    command: zowe zosconnect service start placeOrder
+    expectCode: 0
+    outputContains:
+      - Successfully started Service placeOrder
+    outputDoesntContain:
+      - /[Ee]rror/
+  stop:
+    command: zowe zosconnect service stop placeOrder
+    expectCode: 0
+    outputContains:
+      - Successfully stopped Service placeOrder
+    outputDoesntContain:
+      - /[Ee]rror/

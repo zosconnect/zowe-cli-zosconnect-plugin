@@ -35,7 +35,6 @@ run:
       - /[Ee]rror/
   start:
     command: zowe zosconnect api start catalog
-    cwd: ./tests
     expectCode: 0
     outputContains:
       - Successfully started API catalog
@@ -43,7 +42,6 @@ run:
       - /[Ee]rror/
   stop:
     command: zowe zosconnect api stop catalog
-    cwd: ./tests
     expectCode: 0
     outputContains:
       - Successfully stopped API catalog
