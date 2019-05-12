@@ -18,7 +18,7 @@ export default class ServiceStartHandler extends ZosConnectBaseHandler {
     public async processCmd(commandParams: IHandlerParameters): Promise<void> {
         try {
             await ZosConnectService.start(this.session, commandParams.arguments.serviceName);
-            commandParams.response.console.log(`Successfully started API ${commandParams.arguments.serviceName}`);
+            commandParams.response.console.log(`Successfully started Service ${commandParams.arguments.serviceName}`);
         } catch (error) {
             switch (error.constructor) {
                 case StatusCodeError:
