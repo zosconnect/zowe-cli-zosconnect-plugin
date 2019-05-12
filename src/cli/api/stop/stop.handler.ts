@@ -14,11 +14,11 @@ import { RequestError, StatusCodeError } from "request-promise/errors";
 import { ZosConnectApi } from "../../../api/api/ZosConnectApi";
 import { ZosConnectBaseHandler } from "../../ZosConnectBaseHandler";
 
-export default class ApiStartHandler extends ZosConnectBaseHandler {
+export default class ApiStopHandler extends ZosConnectBaseHandler {
     public async processCmd(commandParams: IHandlerParameters): Promise<void> {
         try {
             await ZosConnectApi.stop(this.session, commandParams.arguments.apiName);
-            commandParams.response.console.log(`Successfully started API ${commandParams.arguments.apiName}`);
+            commandParams.response.console.log(`Successfully stopped API ${commandParams.arguments.apiName}`);
         } catch (error) {
             switch (error.constructor) {
                 case StatusCodeError:
