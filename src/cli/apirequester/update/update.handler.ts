@@ -29,7 +29,7 @@ export default class ApiRequesterUpdateHander extends ZosConnectBaseHandler {
         try {
             const apiRequester = await ZosConnectApiRequester.update(this.session,
                 commandParameters.arguments.apiRequesterName, fileBuf);
-            commandParameters.response.console.log("Successfully updated API " + apiRequester.name);
+            commandParameters.response.console.log("Successfully updated API Requester" + apiRequester.name);
         } catch (error) {
             switch (error.constructor) {
                 case(StatusCodeError):
