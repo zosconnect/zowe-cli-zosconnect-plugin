@@ -18,7 +18,8 @@ export default class ApiRequesterStartHandler extends ZosConnectBaseHandler {
     public async processCmd(commandParams: IHandlerParameters): Promise<void> {
         try {
             await ZosConnectApiRequester.start(this.session, commandParams.arguments.apiRequesterName);
-            commandParams.response.console.log(`Successfully started API ${commandParams.arguments.apiRequesterName}`);
+            commandParams.response.console.log(`Successfully started API Requester ` +
+                `${commandParams.arguments.apiRequesterName}`);
         } catch (error) {
             switch (error.constructor) {
                 case StatusCodeError:

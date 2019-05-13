@@ -1,0 +1,49 @@
+run:
+  list:
+    command: zowe zosconnect apirequester list
+    expectCode: 0
+    outputContains:
+      - catalog_1.0.0
+    outputDoesntContain:
+      - /[Ee]rror/
+  install:
+    prerequisiteCwd: .
+    prerequisites:
+      - zowe zosconnect apirequester delete -f catalog_1.0.0
+    command: zowe zosconnect apirequester install ./artefacts/catalogManager.ara
+    cwd: ./tests
+    expectCode: 0
+    outputContains:
+      - Successfully installed API Requester
+    outputDoesntContain:
+      - /[Ee]rror/
+      - Unable
+  deleteNotStopped:
+    command: zowe zosconnect apirequester delete catalog_1.0.0
+    expectCode: 0
+    outputContains:
+      - API Requester catalog_1.0.0 is started
+    outputDoesntContain:
+      - Successfully deleted API Requester catalog_1.0.0
+  update:
+    command: zowe zosconnect apirequester update catalog_1.0.0 ./artefacts/catalogManager.ara
+    cwd: ./tests
+    expectCode: 0
+    outputContains:
+      - Successfully updated API Requester
+    outputDoesntContain:
+      - /[Ee]rror/
+  start:
+    command: zowe zosconnect apirequester start catalog_1.0.0
+    expectCode: 0
+    outputContains:
+      - Successfully started API Requester catalog_1.0.0
+    outputDoesntContain:
+      - /[Ee]rror/
+  stop:
+    command: zowe zosconnect apirequester stop catalog_1.0.0
+    expectCode: 0
+    outputContains:
+      - Successfully stopped API Requester catalog_1.0.0
+    outputDoesntContain:
+      - /[Ee]rror/
