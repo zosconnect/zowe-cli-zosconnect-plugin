@@ -17,7 +17,7 @@ export class ZosConnectApi {
     /**
      * Install a new API into the server from the supplied AAR file.
      *
-     * @param profile The IProfile to use for connection information.
+     * @param session The ZosConnectSession to use for connection information.
      * @param aarFile The AAR file to be installed.
      */
     public static async install(session: ZosConnectSession, aarFile: Buffer): Promise<Api> {
@@ -29,7 +29,7 @@ export class ZosConnectApi {
     /**
      * Get a list of all the APIs that are installed in the server.
      *
-     * @param profile The IProfile to use for connection information.
+     * @param session The ZosConnectSession to use for connection information.
      */
     public static async list(session: ZosConnectSession): Promise<Api[]> {
         const zosConn = ConnectionUtil.getConnection(session);
@@ -44,7 +44,7 @@ export class ZosConnectApi {
     /**
      * Delete the named API.
      *
-     * @param profile The IProfile to use for connection information.
+     * @param session The ZosConnectSession to use for connection information.
      * @param apiName The name of the API to delete.
      * @param force Whether the API should be deleted regardless of status.
      */
@@ -60,7 +60,7 @@ export class ZosConnectApi {
     /**
      * Update the named API.
      *
-     * @param profile The IProfile to use for connection information.
+     * @param session The ZosConnectSession to use for connection information.
      * @param apiName The name of the API to update.
      * @param aarFile The AAR file containing the updated API information.
      */
@@ -71,12 +71,24 @@ export class ZosConnectApi {
         return new Api(api.getApiName(), api.getVersion(), api.getDescription());
     }
 
+    /**
+     * Set an API as Started
+     *
+     * @param session The ZosConnectSession to use for connection information.
+     * @param apiName The name of the API to set as started
+     */
     public static async start(session: ZosConnectSession, apiName: string): Promise<void> {
         const zosConn = ConnectionUtil.getConnection(session);
         const api = await zosConn.getApi(apiName);
         await api.start();
     }
 
+    /**
+     * Set an API as Stopped
+     *
+     * @param session The ZosConnectSession to use for connection information.
+     * @param apiName The name of the API to set as stopped.
+     */
     public static async stop(session: ZosConnectSession, apiName: string): Promise<void> {
         const zosConn = ConnectionUtil.getConnection(session);
         const api = await zosConn.getApi(apiName);
