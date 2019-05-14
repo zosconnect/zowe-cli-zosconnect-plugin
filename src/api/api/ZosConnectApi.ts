@@ -94,4 +94,17 @@ export class ZosConnectApi {
         const api = await zosConn.getApi(apiName);
         await api.stop();
     }
+
+    /**
+     * Get the detailed information about an API.
+     *
+     * @param session The ZosConnectSession to use for connection information.
+     * @param apiName The name of the API.
+     */
+    public static async info(session: ZosConnectSession, apiName: string): Promise<Api> {
+        const zosConn = ConnectionUtil.getConnection(session);
+        const api = await zosConn.getApi(apiName);
+        return new Api(api.getApiName(), api.getVersion(), api.getDescription(),
+                        await api.getServices(), await api.getStatus());
+    }
 }
