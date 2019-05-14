@@ -47,3 +47,14 @@ run:
       - Successfully stopped API Requester catalog_1.0.0
     outputDoesntContain:
       - /[Ee]rror/
+  info:
+    command: zowe zosconnect apirequester info catalog_1.0.0
+    expectCode: 0
+    outputContains:
+      - catalog_1.0.0
+      - 1.0.0
+      - API for the CICS catalog manager sample application
+      - conn
+      - Stopped
+    outputDoesntContain:
+      - /[Ee]rror/
