@@ -66,4 +66,18 @@ describe("ZosConnectService tests", () => {
         await ZosConnectService.start(session, "foo");
         expect(serviceObj.start).toHaveBeenCalledTimes(1);
     });
+
+    it("should return info on the Service", async () => {
+        ZosConnect.prototype.getService = jest.fn().mockReturnValue(serviceObj);
+        serviceObj.getServiceInvokeUrl = jest.fn().mockReturnValue("invokeUrl");
+        serviceObj.getStatus = jest.fn().mockReturnValue("Started");
+        const service = await ZosConnectService.info(session, "foo");
+        expect(service.name).toEqual("foo");
+        expect(service.description).toEqual("bar");
+        expect(service.serviceProvider).toEqual("baz");
+        expect(serviceObj.getServiceInvokeUrl).toHaveBeenCalledTimes(1);
+        expect(service.invokeUrl).toEqual("invokeUrl");
+        expect(serviceObj.getStatus).toHaveBeenCalledTimes(1);
+        expect(service.status).toEqual("Started");
+    });
 });

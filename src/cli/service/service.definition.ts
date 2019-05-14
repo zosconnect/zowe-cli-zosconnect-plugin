@@ -12,6 +12,7 @@
 import { ICommandDefinition } from "@brightside/imperative";
 import { ZosConnectSessionutils } from "../ZosConnectionSessionUtils";
 import { DeleteDefinition } from "./delete/delete.definition";
+import { InfoDefinition } from "./info/info.definition";
 import { InstallDefinition } from "./install/install.definition";
 import { ListDefinition } from "./list/list.definition";
 import { StartDefinition } from "./start/start.definition";
@@ -22,7 +23,8 @@ const serviceDefinition: ICommandDefinition = {
     name: "service",
     type: "group",
     description: "Manage z/OS Connect EE Services",
-    children: [ListDefinition, InstallDefinition, DeleteDefinition, UpdateDefinition, StartDefinition, StopDefinition],
+    children: [ListDefinition, InstallDefinition, DeleteDefinition, UpdateDefinition,
+               StartDefinition, StopDefinition, InfoDefinition],
     passOn: [
         {
             property: "options",
