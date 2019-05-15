@@ -10,7 +10,12 @@
     "lint": "npx tslint -p ./tsconfig.json",
     "test": "jest --coverage && codecov",
     "pluginInstall": "zowe plugins install ./zosconnect-zosconnect-zowe-cli-$npm_package_version.tgz",
-    "integration": "judo tests/"
+    "integration": "judo tests/",
+    "dailyVersion": "npm version prerelease --preid=`date \"+%Y%m%d%H%M\"` --allow-same-version"
+  },
+  "publishConfig": {
+    "access": "public",
+    "tag": "daily"
   },
   "keywords": [
     "zowe",
