@@ -1,6 +1,6 @@
 {
   "name": "@zosconnect/zosconnect-zowe-cli",
-  "version": "1.0.1-201905151306.0",
+  "version": "1.1.0-201905151306",
   "description": "z/OS Connect EE Plugin for Zowe CLI",
   "main": "lib/index.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "test": "jest --coverage && codecov",
     "pluginInstall": "zowe plugins install ./zosconnect-zosconnect-zowe-cli-$npm_package_version.tgz",
     "integration": "judo tests/",
-    "dailyVersion": "npm version prerelease --preid=`date \"+%Y%m%d%H%M\"` --allow-same-version"
+    "dailyVersion": "npm version --preid=`date \"+%Y%m%d%H%M\"` --allow-same-version"
   },
   "publishConfig": {
     "access": "public",
