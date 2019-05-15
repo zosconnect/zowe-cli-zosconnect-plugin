@@ -6,7 +6,7 @@ import { ZosConnectSession } from "../../../ZosConnectSession";
 describe("ZosConnectApiRequester tests", () => {
     const session = new ZosConnectSession("http://example.com:9080");
     const options = { uri: "http://example.com:9080" };
-    const apiRequesterObj = new ApiRequester(options, "foo", "bar", "baz", "conn", "started");
+    const apiRequesterObj = new ApiRequester(options, "foo", "bar", "baz", "conn", "Started");
 
     it("should install the API Requester", async () => {
         ZosConnect.prototype.createApiRequester = jest.fn().mockReturnValue(apiRequesterObj);
@@ -65,5 +65,15 @@ describe("ZosConnectApiRequester tests", () => {
         apiRequesterObj.start = jest.fn();
         await ZosConnectApiRequester.start(session, "foo");
         expect(apiRequesterObj.start).toHaveBeenCalledTimes(1);
+    });
+
+    it("should return information about the API Requester", async () => {
+        ZosConnect.prototype.getApiRequester = jest.fn().mockReturnValue(apiRequesterObj);
+        const apiRequester = await ZosConnectApiRequester.info(session, "foo");
+        expect(apiRequester.name).toEqual("foo");
+        expect(apiRequester.version).toEqual("bar");
+        expect(apiRequester.description).toEqual("baz");
+        expect(apiRequester.connection).toEqual("conn");
+        expect(apiRequester.status).toEqual("Started");
     });
 });

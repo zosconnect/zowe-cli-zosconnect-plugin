@@ -73,15 +73,40 @@ export class ZosConnectService {
         await service.delete();
     }
 
+    /**
+     * Set a Service as Started.
+     *
+     * @param session The ZosConnectSession to use for connection information.
+     * @param serviceName The name of the Service.
+     */
     public static async start(session: ZosConnectSession, serviceName: string): Promise<void> {
         const zosConn = ConnectionUtil.getConnection(session);
         const service = await zosConn.getService(serviceName);
         await service.start();
     }
 
+    /**
+     * Set a Service as Stopped.
+     *
+     * @param session The ZosConnectSession to use for connection information.
+     * @param serviceName The name of the Service.
+     */
     public static async stop(session: ZosConnectSession, serviceName: string): Promise<void> {
         const zosConn = ConnectionUtil.getConnection(session);
         const service = await zosConn.getService(serviceName);
         await service.stop();
+    }
+
+    /**
+     * Get detailed information about a Service.
+     *
+     * @param session The ZosConnectSession to use for connection information.
+     * @param serviceName The name of the Service.
+     */
+    public static async info(session: ZosConnectSession, serviceName: string): Promise<Service> {
+        const zosConn = ConnectionUtil.getConnection(session);
+        const service = await zosConn.getService(serviceName);
+        return new Service(service.getName(), service.getDescription(), service.getServiceProvider(),
+            await service.getServiceInvokeUrl(), await service.getStatus());
     }
 }

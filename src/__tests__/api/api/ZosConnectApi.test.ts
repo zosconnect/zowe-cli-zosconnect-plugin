@@ -65,7 +65,23 @@ describe("ZosConnectApi tests", () => {
     it("should start the API", async () => {
         ZosConnect.prototype.getApi = jest.fn().mockReturnValue(apiObj);
         apiObj.start = jest.fn();
+
         await ZosConnectApi.start(session, "foo");
         expect(apiObj.start).toBeCalledTimes(1);
+    });
+
+    it("should return the API info", async () => {
+        ZosConnect.prototype.getApi = jest.fn().mockReturnValue(apiObj);
+        apiObj.getServices = jest.fn().mockReturnValue(["serviceFoo"]);
+        apiObj.getStatus = jest.fn().mockReturnValue("Started");
+        const api = await ZosConnectApi.info(session, "foo");
+        expect(api.name).toEqual("foo");
+        expect(api.version).toEqual("bar");
+        expect(api.description).toEqual("baz");
+        expect(api.services).toBeDefined();
+        expect(api.services).toHaveLength(1);
+        expect(api.services[0]).toEqual("serviceFoo");
+        expect(api.status).toBeDefined();
+        expect(api.status).toEqual("Started");
     });
 });

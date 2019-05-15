@@ -47,3 +47,14 @@ run:
       - Successfully stopped Service placeOrder
     outputDoesntContain:
       - /[Ee]rror/
+  info:
+    command: zowe zosconnect service info placeOrder
+    expectCode: 0
+    outputContains:
+      - placeOrder
+      - Place order service
+      - CICS-1.0
+      - zosConnect/services/placeOrder?action=invoke
+      - Stopped
+    outputDoesntContain:
+      - /[Ee]rror/

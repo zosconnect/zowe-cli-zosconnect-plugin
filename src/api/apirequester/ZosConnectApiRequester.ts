@@ -59,4 +59,11 @@ export class ZosConnectApiRequester {
         const apiRequester = await zosConn.getApiRequester(apiRequesterName);
         await apiRequester.stop();
     }
+
+    public static async info(session: ZosConnectSession, apiRequesterName: string): Promise<ApiRequester> {
+        const zosConn = ConnectionUtil.getConnection(session);
+        const apiRequester = await zosConn.getApiRequester(apiRequesterName);
+        return new ApiRequester(apiRequester.getName(), apiRequester.getVersion(), apiRequester.getDescription(),
+            apiRequester.getConnection(), apiRequester.getStatus());
+    }
 }
