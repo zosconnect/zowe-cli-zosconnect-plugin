@@ -11,7 +11,7 @@
     "test": "jest --coverage && codecov",
     "pluginInstall": "zowe plugins install ./zosconnect-zosconnect-zowe-cli-$npm_package_version.tgz",
     "integration": "judo tests/",
-    "dailyVersion": "npm version --preid=`date \"+%Y%m%d%H%M\"` --allow-same-version"
+    "dailyVersion": "npm version $npm_package_version --preid=`date \"+%Y%m%d%H%M\"` --allow-same-version"
   },
   "publishConfig": {
     "access": "public",
