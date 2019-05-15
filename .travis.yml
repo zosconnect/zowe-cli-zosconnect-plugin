@@ -1,15 +1,24 @@
 language: node_js
 dist: xenial
 node_js:
-  - node
-  - lts/*
-  - '8'
+- node
+- lts/*
+- '8'
 before_install:
-  - npm run setup
+- npm run setup
 before_script:
-  - npm run build
+- npm run build
 script:
-  - npm test
-  - npm run lint
-  - npm pack
-  - npm run pluginInstall
+- npm test
+- npm run lint
+- npm pack
+- npm run pluginInstall
+deploy:
+  provider: npm
+  email: smithson@uk.ibm.com
+  api_key:
+    secure: jancPmDrElCc+zMCNogYXgT4I20kQa/tzuE7+0sKR9qW2gWXxqkOa03P6lmKaWRlVIiOwU7eWu0C+FUoRHCCTn3w/cJy4J9l6t/ZODbwoxgeTqGVmPp5Q2tefFjh0bPwx5SpV8NRrXb6xd/PF9XIhd6yyO1p70LeVLKv06ziCRm0Del/wuE1k3OctErRm/8PZLbzU3+wZkpSwSs3BT83ml5tc9WCBnG4UIONh30k2BKVo5OUgh1tcX0UkUs3ktct6Y8Got1htdyN+Knf5ZznMc2ZSpmC/8hV3mPbsNG3CTnDGn0b0Wwl0hN9fJmrfpABBDF75l1kDV0uDJuKY7k/u6KV32zEvuLuMVQ5Wl4EsRHsvwjpO2mVUBF7dAdo0VLs+cqu0zJ+frLNKj9x0isSxegdS0b6qtLZZEY8w44dk0r6eik9zjpGO1OeLZdkueX+jDGWoCAJWn7onlVEouWOhX8ifo2N3gh+ZEXtBVDSOupQ/mhUtuZgHWTP9u+jCr+GnDC7Rg1wmE3IK+pBOdlvy2uIzXfip+iWpnsOXtGK6XSYoGP6wseXuCG6FArg7vkECUr+eX5P7NeisjZtjmHeabWiFtLY419eaZRfjmnNDQTkl29fX8E5oN7yq/+7wtHqE8Svwdf/Ld/XC8xzeiUlx4mfH5i0SU4CYaVpcKIm/Yw=
+  on:
+    tags: true
+    repo: zosconnect/zowe-cli-zosconnect-plugin
+    branch: master
