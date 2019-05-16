@@ -6,7 +6,7 @@ The Zowe CLI needs to be [installed](https://zowe.github.io/docs-site/latest/use
 
 ## Installing
 
-`zowe plugins install @zosconnect/zosconnect-zowe-cli`
+`zowe plugins install @zosconnect/zosconnect-zowe-cli@lts-incremental`
 
 ## Create a profile
 
