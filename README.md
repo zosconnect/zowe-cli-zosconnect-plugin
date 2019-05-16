@@ -18,6 +18,10 @@ The Zowe CLI needs to be [installed](https://zowe.github.io/docs-site/latest/use
 
 `zowe zosconnect api list`
 
+### Get information about an API
+
+`zowe zosconnect api info <API name>`
+
 ### Install a new API
 
 `zowe zosconnect api install <AAR file>`
@@ -46,6 +50,10 @@ If you specify `-f` option then the CLI will stop the API before deleting it.
 
 `zowe zosconnect service list`
 
+### Get information about a Service
+
+`zowe zosconnect service info <Service name>`
+
 ### Install a new Service
 
 `zowe zosconnect service install <SAR file>`
@@ -73,6 +81,10 @@ If you specify the `-f` option then the CLI will stop the Service before deletin
 ### List the install API Requesters
 
 `zowe zosconnect apirequester list`
+
+### Get information about an API Requester
+
+`zowe zosconnect apirequester info <API Requester name>`
 
 ### Install a new API Requester
 
