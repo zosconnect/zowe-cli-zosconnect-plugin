@@ -112,5 +112,7 @@ If you specify the `-f` option then the CLI will stop the API Requester before d
 
 1. Clone this repository `git clone git@github.com:zosconnect/zowe-cli-zosconnect-plugin.git`
 1. Build the plugin `npm run build`
+1. Run the CLI Tests `npm test`
 1. Package the plugin `npm pack`
 1. Install the plugin `npm run pluginInstall`
+1. Run the integration tests `npm run integration`
