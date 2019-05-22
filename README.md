@@ -6,7 +6,7 @@ The Zowe CLI needs to be [installed](https://zowe.github.io/docs-site/latest/use
 
 ## Installing
 
-`zowe plugins install @zosconnect/zosconnect-zowe-cli`
+`zowe plugins install @zosconnect/zosconnect-zowe-cli@lts-incremental`
 
 ## Create a profile
 
@@ -17,6 +17,10 @@ The Zowe CLI needs to be [installed](https://zowe.github.io/docs-site/latest/use
 ### List the installed APIs
 
 `zowe zosconnect api list`
+
+### Get information about an API
+
+`zowe zosconnect api info <API name>`
 
 ### Install a new API
 
@@ -46,6 +50,10 @@ If you specify `-f` option then the CLI will stop the API before deleting it.
 
 `zowe zosconnect service list`
 
+### Get information about a Service
+
+`zowe zosconnect service info <Service name>`
+
 ### Install a new Service
 
 `zowe zosconnect service install <SAR file>`
@@ -74,6 +82,10 @@ If you specify the `-f` option then the CLI will stop the Service before deletin
 
 `zowe zosconnect apirequester list`
 
+### Get information about an API Requester
+
+`zowe zosconnect apirequester info <API Requester name>`
+
 ### Install a new API Requester
 
 `zowe zosconnect apirequester install <ARA file>`
@@ -100,5 +112,7 @@ If you specify the `-f` option then the CLI will stop the API Requester before d
 
 1. Clone this repository `git clone git@github.com:zosconnect/zowe-cli-zosconnect-plugin.git`
 1. Build the plugin `npm run build`
+1. Run the CLI Tests `npm test`
 1. Package the plugin `npm pack`
 1. Install the plugin `npm run pluginInstall`
+1. Run the integration tests `npm run integration`
