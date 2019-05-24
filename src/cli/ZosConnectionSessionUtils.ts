@@ -59,6 +59,6 @@ export class ZosConnectSessionutils {
     ];
 
     public static createZosConnectSession(args: ICommandArguments) {
-        return new ZosConnectSession(args.address, args.rejectUnauthorized, args.user, args.password);
+        return new ZosConnectSession(args.address, args.user, args.password, args.rejectUnauthorized);
     }
 }
