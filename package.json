@@ -26,6 +26,10 @@
   "dependencies": {
     "@zosconnect/zosconnect-node": "^3.3.0"
   },
+  "peerDependencies": {
+    "@brightside/core": ">=2.0.0-0",
+    "@brightside/imperative": ">=2.0.0-0"
+  },
   "imperative": {
     "configurationModule": "lib/imperative.js"
   },
