@@ -42,6 +42,10 @@ export default class UpdateHandler extends ZosConnectBaseHandler {
                         case 403:
                             commandParameters.response.console.error("Security error, Service was not updated");
                             break;
+                        case 404:
+                            commandParameters.response.console.error(
+                                `Service ${commandParameters.arguments.serviceName} is not installed.`);
+                            break;
                         case 409:
                             commandParameters.response.console.error(
                                 "Unable to update Service, it conflicts with an existing Service");
