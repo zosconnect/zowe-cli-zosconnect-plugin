@@ -43,7 +43,8 @@ export default class DeleteHandler extends ZosConnectBaseHandler {
                     }
                     break;
                 case RequestError:
-                    commandParams.response.console.error(`Unable to connect to ${this.session.address}`);
+                    commandParams.response.console.error(
+                        `Unable to connect to ${this.session.address} - ${error.message}`);
                     break;
                 default:
                     commandParams.response.console.error(error);
