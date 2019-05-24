@@ -10,7 +10,9 @@ The Zowe CLI needs to be [installed](https://zowe.github.io/docs-site/latest/use
 
 ## Create a profile
 
-* Run the command `zowe profiles create zosconnect -a <server address> [-u <user id> -p <password>]`
+* Run the command `zowe profiles create zosconnect -a <server address> [-u <user id> -p <password> --ru]`
+
+*Note:* If you are using a self-signed certificate then `--ru` needs to be set to `false`.
 
 ## Working with APIs
 

@@ -10,6 +10,7 @@
  */
 
 export class ZosConnectSession {
-    constructor(public address: string, public user?: string, public password?: string) {
+    constructor(public address: string, public user?: string, public password?: string,
+                public rejectUnauthorized: boolean = true) {
     }
 }

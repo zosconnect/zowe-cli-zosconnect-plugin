@@ -55,7 +55,8 @@ export default class ApiRequesterUpdateHander extends ZosConnectBaseHandler {
                     }
                     break;
                 case RequestError:
-                    commandParameters.response.console.error(`Unable to connect to ${this.session.address}`);
+                    commandParameters.response.console.error(
+                        `Unable to connect to ${this.session.address} - ${error.message}`);
                     break;
                 default:
                     commandParameters.response.console.error(error);

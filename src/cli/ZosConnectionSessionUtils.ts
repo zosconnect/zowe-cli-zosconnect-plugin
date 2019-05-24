@@ -42,13 +42,23 @@ export class ZosConnectSessionutils {
         group: ZosConnectSessionutils.ZCON_CONNECTION_OPTION_GROUP,
     };
 
+    public static ZCON_OPTION_REJECTUNAUTHORIZED: ICommandOptionDefinition = {
+        name: "rejectUnauthorized",
+        description: "Reject self-signed certificates",
+        type: "boolean",
+        aliases: ["ru"],
+        required: false,
+        defaultValue: true,
+    };
+
     public static ZCON_CONNECTION_OPTIONS: ICommandOptionDefinition[] = [
         ZosConnectSessionutils.ZCON_OPTION_ADDRESS,
         ZosConnectSessionutils.ZCON_OPTION_USER,
         ZosConnectSessionutils.ZCON_OPTION_PASSWORD,
+        ZosConnectSessionutils.ZCON_OPTION_REJECTUNAUTHORIZED,
     ];
 
     public static createZosConnectSession(args: ICommandArguments) {
-        return new ZosConnectSession(args.address, args.user, args.password);
+        return new ZosConnectSession(args.address, args.rejectUnauthorized, args.user, args.password);
     }
 }
