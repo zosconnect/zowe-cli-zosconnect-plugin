@@ -53,6 +53,17 @@ const config: IImperativeConfig = {
                         implies: ["user"],
                     },
                 },
+                rejectUnauthorized: {
+                    type: "boolean",
+                    optionDefinition: {
+                        description: "Reject self-signed certificates",
+                        type: "boolean",
+                        aliases: ["ru"],
+                        name: "rejectUnauthorized",
+                        required: false,
+                        defaultValue: true,
+                    },
+                },
             },
             required: ["address"],
         },

@@ -22,6 +22,7 @@ export class ConnectionUtil {
     public static getConnection(session: ZosConnectSession): ZosConnect {
         const options = {} as request.OptionsWithUri;
         options.uri = session.address;
+        options.strictSSL = session.rejectUnauthorized;
         if (session.user !== undefined) {
             options.auth = {} as request.AuthOptions;
             options.auth.user = session.user;
