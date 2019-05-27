@@ -10,6 +10,7 @@
  */
 
 import { ICommandHandler, IHandlerParameters } from "@brightside/imperative";
+import { RequestError } from "request-promise/errors";
 import { ZosConnectSession } from "../ZosConnectSession";
 import { ZosConnectSessionutils } from "./ZosConnectionSessionUtils";
 
@@ -20,7 +21,18 @@ export abstract class ZosConnectBaseHandler implements ICommandHandler {
     public async process(commandParameters: IHandlerParameters) {
         const profile = commandParameters.profiles.get("zosconnect");
         this.session = ZosConnectSessionutils.createZosConnectSession(commandParameters.arguments);
-        this.processCmd(commandParameters);
+        try {
+            await this.processCmd(commandParameters);
+        } catch (error) {
+            switch (error.constructor) {
+                case RequestError:
+                    commandParameters.response.console.error(
+                        `Unable to connect to ${this.session.address} - ${error.message}`);
+                    break;
+                default:
+                    commandParameters.response.console.error(error);
+            }
+        }
     }
 
     public abstract async processCmd(commandParameters: IHandlerParameters): Promise<void>;

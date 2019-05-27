@@ -38,12 +38,8 @@ export default class ApiRequesterStartHandler extends ZosConnectBaseHandler {
                             commandParams.response.console.error(statusCodeError.message);
                     }
                     break;
-                case RequestError:
-                    commandParams.response.console.error(
-                        `Unable to connect to ${this.session.address} - ${error.message}`);
-                    break;
                 default:
-                    commandParams.response.console.error(error);
+                    throw error;
             }
         }
     }

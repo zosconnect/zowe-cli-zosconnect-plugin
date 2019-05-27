@@ -47,16 +47,16 @@ export default class ServiceInstallHandler extends ZosConnectBaseHandler {
                             commandParameters.response.console.error(
                                 "Unable to install Service, one with the same name is already installed");
                             break;
+                        case 503:
+                            commandParameters.response.console.error(
+                                "Unable to install Service, the server does not support the type of service");
+                            break;
                         default:
                             commandParameters.response.console.error(statusCodeError.message);
                     }
                     break;
-                case RequestError:
-                    commandParameters.response.console.error(
-                        `Unable to connect to ${this.session.address} - ${error.message}`);
-                    break;
                 default:
-                    commandParameters.response.console.error(error);
+                    throw error;
             }
         }
     }

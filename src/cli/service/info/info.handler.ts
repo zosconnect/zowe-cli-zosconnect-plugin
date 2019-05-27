@@ -41,12 +41,8 @@ export default class ServiceInfoHandler extends ZosConnectBaseHandler {
                             commandParameters.response.console.error(statusCodeError.message);
                     }
                     break;
-                case RequestError:
-                    commandParameters.response.console.error(
-                        `Unable to connect to ${this.session.address} - ${error.message}`);
-                    break;
                 default:
-                    commandParameters.response.console.error(error);
+                    throw error;
             }
         }
     }
