@@ -24,6 +24,7 @@ export default class ApiInfoHandler extends ZosConnectBaseHandler {
                 format: "object",
                 output: apiRequester,
             });
+            commandParameters.response.data.setObj(apiRequester);
         } catch (error) {
             switch (error.constructor) {
                 case StatusCodeError:
