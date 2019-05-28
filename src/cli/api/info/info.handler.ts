@@ -23,6 +23,7 @@ export default class ApiInfoHandler extends ZosConnectBaseHandler {
                 format: "object",
                 output: api,
             });
+            commandParameters.response.data.setObj(api);
         } catch (error) {
             switch (error.constructor) {
                 case StatusCodeError:

@@ -23,6 +23,7 @@ export default class ServiceInfoHandler extends ZosConnectBaseHandler {
                 format: "object",
                 output: service,
             });
+            commandParameters.response.data.setObj(service);
         } catch (error) {
             switch (error.constructor) {
                 case StatusCodeError:
