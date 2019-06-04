@@ -17,7 +17,7 @@
   },
   "publishConfig": {
     "access": "public",
-    "tag": "daily"
+    "tag": "lts-incremental"
   },
   "keywords": [
     "zowe",
