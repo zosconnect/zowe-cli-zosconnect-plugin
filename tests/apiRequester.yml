@@ -1,5 +1,8 @@
 run:
   list:
+    prerequisiteCwd: ./tests
+    prerequisites:
+      - zowe zosconnect apirequester install ./artefacts/catalogManager.ara
     command: zowe zosconnect apirequester list
     expectCode: 0
     outputContains:
