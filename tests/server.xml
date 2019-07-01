@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<server description="zosconnAS">
+    <!-- Enable features -->
+    <featureManager>
+        <feature>zosconnect:zosConnect-2.0</feature>
+        <feature>zosconnect:zosConnectCommands-1.0</feature>
+        <feature>zosconnect:cicsService-1.0</feature>
+        <feature>zosconnect:apiRequester-1.0</feature>
+    </featureManager>
+    
+    <httpEndpoint id="defaultHttpEndpoint" host="*" httpPort="10112" httpsPort="-1" />
+    
+    <cors id="defaultCORSConfig" domain="/" allowedOrigins="*" allowedMethods="GET, POST, PUT, DELETE, OPTIONS" allowedHeaders="Origin, Content-Type, Authorization" allowCredentials="true" maxAge="3600" />
+    
+    <config updateTrigger="mbean" monitorInterval="500" />
+    
+    <zosconnect_zosConnectManager setUTF8ResponseEncoding="true" requireSecure="false" requireAuth="false" />
+    
+    <zosconnect_zosConnectAPIs updateTrigger="disabled" pollingRate="5s" />
+    
+    <zosconnect_services updateTrigger="disabled" pollingRate="5s" />
+    
+    <applicationMonitor updateTrigger="disabled" dropinsEnabled="false" />
+    
+    <zosconnect_cicsIpicConnection host="winmvs3v.hursley.ibm.com" id="cicsConn" port="1100" />
+</server>

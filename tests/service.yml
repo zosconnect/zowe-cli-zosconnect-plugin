@@ -1,5 +1,8 @@
 run:
   list:
+    prerequisiteCwd: ./tests/
+    prerequisites:
+      - zowe zosconnect service install ./artefacts/placeOrder.sar
     command: zowe zosconnect service list
     expectCode: 0
     outputContains:

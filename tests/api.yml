@@ -1,5 +1,8 @@
 run:
   list:
+    prerequisiteCwd: ./tests
+    prerequisites:
+      - zowe zosconnect api install ./artefacts/catalog.aar
     command: zowe zosconnect api list
     expectCode: 0
     outputContains:
