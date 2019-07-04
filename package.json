@@ -24,7 +24,7 @@
   "author": "Andrew Smithson",
   "license": "EPL-2.0",
   "dependencies": {
-    "@zosconnect/zosconnect-node": "^3.3.1"
+    "@zosconnect/zosconnect-node": "^3.3.2"
   },
   "peerDependencies": {
     "@brightside/core": ">=2.0.0-0",
