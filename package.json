@@ -11,7 +11,9 @@
     "test": "jest --coverage && codecov",
     "pluginInstall": "zowe plugins install ./zosconnect-zosconnect-zowe-cli-$npm_package_version.tgz",
     "integration": "judo tests/",
-    "dailyVersion": "npm version prerelease --preid=`date \"+%Y%m%d%H%M\"` --allow-same-version"
+    "dailyVersion": "npm version prerelease --preid=`date \"+%Y%m%d%H%M\"` --allow-same-version",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "publishConfig": {
     "access": "public",
@@ -24,7 +26,8 @@
   "author": "Andrew Smithson",
   "license": "EPL-2.0",
   "dependencies": {
-    "@zosconnect/zosconnect-node": "^3.3.2"
+    "@zosconnect/zosconnect-node": "^3.3.2",
+    "snyk": "^1.192.0"
   },
   "peerDependencies": {
     "@brightside/core": ">=2.0.0-0",
@@ -52,5 +55,6 @@
   "files": [
     "config",
     "lib"
-  ]
+  ],
+  "snyk": true
 }
