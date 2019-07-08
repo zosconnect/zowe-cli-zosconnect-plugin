@@ -35,6 +35,7 @@ export default class ApiRequesterDeleteHandler extends ZosConnectBaseHandler {
                             commandParams.response.console.error(
                                 `API Requester ${commandParams.arguments.apiRequesterName} is not installed.`);
                             break;
+                        case 400:
                         case 409:
                             commandParams.response.console.error(
                                 `API Requester ${commandParams.arguments.apiRequesterName} is started.`);
