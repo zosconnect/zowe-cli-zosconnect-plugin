@@ -26,8 +26,8 @@
   "author": "Andrew Smithson",
   "license": "EPL-2.0",
   "dependencies": {
-    "@zosconnect/zosconnect-node": "^3.3.2",
-    "snyk": "^1.192.0"
+    "@zosconnect/zosconnect-node": "^3.3.3",
+    "snyk": "^1.193.0"
   },
   "peerDependencies": {
     "@brightside/core": ">=2.0.0-0",
@@ -46,7 +46,7 @@
     "jest": "^24.8.0",
     "ts-jest": "^24.0.2",
     "tslint": "^5.18.0",
-    "typescript": "^3.5.2"
+    "typescript": "^3.5.3"
   },
   "repository": {
     "type": "git",
