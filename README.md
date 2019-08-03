@@ -1,4 +1,4 @@
-# Zowe CLI Plug-in for z/OS Connect EE
+# z/OS Connect EE Plug-in for Zowe CLI
 
 This plugin extends the Zowe CLI to allow the management of z/OS Connect EE APIs, Services and API Requesters.
 
