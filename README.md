@@ -1,5 +1,10 @@
 # z/OS Connect EE Plug-in for Zowe CLI
 
+<img src="./imgs/Zowe_ConformanceBadge_cli.svg" width=25%/>
+
+[![Build Status](https://travis-ci.org/zosconnect/zowe-cli-zosconnect-plugin.svg?branch=master)](https://travis-ci.org/zosconnect/zowe-cli-zosconnect-plugin)
+[![NPM Version](https://img.shields.io/npm/v/@zosconnect/zosconnect-zowe-cli)](https://www.npmjs.com/package/@zosconnect/zosconnect-zowe-cli)
+
 This plugin extends the Zowe CLI to allow the management of z/OS Connect EE APIs, Services and API Requesters.
 
 The Zowe CLI needs to be [installed](https://zowe.github.io/docs-site/latest/user-guide/cli-installcli.html#methods-to-install-zowe-cli).
