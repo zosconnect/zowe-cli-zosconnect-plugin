@@ -7,7 +7,7 @@
 
 This plugin extends the Zowe CLI to allow the management of z/OS Connect EE APIs, Services and API Requesters.
 
-The Zowe CLI needs to be [installed](https://zowe.github.io/docs-site/latest/user-guide/cli-installcli.html#methods-to-install-zowe-cli).
+The Zowe CLI needs to be [installed](https://docs.zowe.org/stable/user-guide/cli-installcli.html#methods-to-install-zowe-cli).
 
 ## Installing
 
