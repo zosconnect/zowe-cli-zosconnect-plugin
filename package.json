@@ -27,7 +27,7 @@
   "license": "EPL-2.0",
   "dependencies": {
     "@zosconnect/zosconnect-node": "^3.3.3",
-    "snyk": "^1.278.2"
+    "snyk": "^1.316.1"
   },
   "peerDependencies": {
     "@brightside/core": ">=2.0.0-0",
