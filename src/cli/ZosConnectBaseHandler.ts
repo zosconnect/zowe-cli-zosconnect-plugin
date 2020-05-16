@@ -9,8 +9,8 @@
  *
  */
 
-import { ICommandHandler, IHandlerParameters } from "@brightside/imperative";
-import { RequestError } from "request-promise/errors";
+import { ICommandHandler, IHandlerParameters } from "@zowe/imperative";
+import { RequestError } from "got";
 import { ZosConnectSession } from "../ZosConnectSession";
 import { ZosConnectSessionutils } from "./ZosConnectionSessionUtils";
 

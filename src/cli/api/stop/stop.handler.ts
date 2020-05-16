@@ -9,8 +9,8 @@
  *
  */
 
-import { IHandlerParameters } from "@brightside/imperative";
-import { RequestError, StatusCodeError } from "request-promise/errors";
+import { IHandlerParameters } from "@zowe/imperative";
+import { HTTPError } from "got";
 import { ZosConnectApi } from "../../../api/api/ZosConnectApi";
 import { ZosConnectBaseHandler } from "../../ZosConnectBaseHandler";
 
@@ -21,9 +21,8 @@ export default class ApiStopHandler extends ZosConnectBaseHandler {
             commandParams.response.console.log(`Successfully stopped API ${commandParams.arguments.apiName}`);
         } catch (error) {
             switch (error.constructor) {
-                case StatusCodeError:
-                    const statusCodeError = error as StatusCodeError;
-                    switch (statusCodeError.statusCode) {
+                case HTTPError:
+                    switch (error.response.statusCode) {
                         case 401:
                         case 403:
                             commandParams.response.console.error(
@@ -34,7 +33,7 @@ export default class ApiStopHandler extends ZosConnectBaseHandler {
                                 `API ${commandParams.arguments.apiName} is not installed.`);
                             break;
                         default:
-                            commandParams.response.console.error(statusCodeError.message);
+                            commandParams.response.console.error(error.response.statusMessage);
                     }
                     break;
                 default:

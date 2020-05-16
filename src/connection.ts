@@ -10,19 +10,16 @@
  */
 
 import { ZosConnect } from "@zosconnect/zosconnect-node";
-import request = require("request");
+import { RequestOptions } from "https";
 import { ZosConnectSession } from "./ZosConnectSession";
 
 export class ConnectionUtil {
     public static getConnection(session: ZosConnectSession): ZosConnect {
-        const options = {} as request.OptionsWithUri;
-        options.uri = session.address;
-        options.strictSSL = session.rejectUnauthorized;
+        const options = {} as RequestOptions;
+        options.rejectUnauthorized = session.rejectUnauthorized;
         if (session.user !== undefined) {
-            options.auth = {} as request.AuthOptions;
-            options.auth.user = session.user;
-            options.auth.pass = session.password;
+            options.auth = session.user + ":" + session.password;
         }
-        return new ZosConnect(options);
+        return new ZosConnect(session.address, options);
     }
 }

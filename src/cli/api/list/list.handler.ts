@@ -9,8 +9,8 @@
  *
  */
 
-import { IHandlerParameters } from "@brightside/imperative";
-import { RequestError, StatusCodeError } from "request-promise/errors";
+import { IHandlerParameters } from "@zowe/imperative";
+import { HTTPError } from "got";
 import { ZosConnectApi } from "../../../api/api/ZosConnectApi";
 import { ZosConnectBaseHandler } from "../../ZosConnectBaseHandler";
 
@@ -30,15 +30,14 @@ export default class ApiListHandler extends ZosConnectBaseHandler {
             commandParameters.response.data.setObj(apis);
         } catch (error) {
             switch (error.constructor) {
-                case StatusCodeError:
-                    const statusCodeError = error as StatusCodeError;
-                    switch (statusCodeError.statusCode) {
+                case HTTPError:
+                    switch (error.response.statusCode) {
                         case 401:
                         case 403:
                             commandParameters.response.console.error("Security error, unable to display APIs");
                             break;
                         default:
-                            commandParameters.response.console.error(statusCodeError.message);
+                            commandParameters.response.console.error(error.response.statusMessage);
                     }
                     break;
                 default:

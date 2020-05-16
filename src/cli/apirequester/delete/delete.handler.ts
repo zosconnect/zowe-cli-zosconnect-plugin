@@ -9,8 +9,8 @@
  *
  */
 
-import { IHandlerParameters } from "@brightside/imperative";
-import { RequestError, StatusCodeError } from "request-promise/errors";
+import { IHandlerParameters } from "@zowe/imperative";
+import { HTTPError } from "got";
 import { ZosConnectApiRequester } from "../../../api/apirequester/ZosConnectApiRequester";
 import { ZosConnectBaseHandler } from "../../ZosConnectBaseHandler";
 
@@ -23,9 +23,8 @@ export default class ApiRequesterDeleteHandler extends ZosConnectBaseHandler {
                 `Successfully deleted API Requester ${commandParams.arguments.apiRequesterName}`);
         } catch (error) {
             switch (error.constructor) {
-                case StatusCodeError:
-                    const statusCodeError = error as StatusCodeError;
-                    switch (statusCodeError.statusCode) {
+                case HTTPError:
+                    switch (error.response.statusCode) {
                         case 401:
                         case 403:
                             commandParams.response.console.error(
@@ -41,7 +40,7 @@ export default class ApiRequesterDeleteHandler extends ZosConnectBaseHandler {
                                 `API Requester ${commandParams.arguments.apiRequesterName} is started.`);
                             break;
                         default:
-                            commandParams.response.console.error(statusCodeError.message);
+                            commandParams.response.console.error(error.response.statusMessage);
                     }
                     break;
                 default:

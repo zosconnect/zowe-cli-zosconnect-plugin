@@ -9,9 +9,9 @@
  *
  */
 
-import { IHandlerParameters } from "@brightside/imperative";
+import { IHandlerParameters } from "@zowe/imperative";
 import fs = require("fs");
-import { RequestError, StatusCodeError } from "request-promise/errors";
+import { HTTPError } from "got";
 import { ZosConnectService } from "../../../api/service/ZosConnectService";
 import { ZosConnectBaseHandler } from "../../ZosConnectBaseHandler";
 
@@ -32,9 +32,8 @@ export default class UpdateHandler extends ZosConnectBaseHandler {
             commandParameters.response.console.log(`Successfully updated Service ${service.name}`);
         } catch (error) {
             switch (error.constructor) {
-                case(StatusCodeError):
-                    const statusCodeError = error as StatusCodeError;
-                    switch (statusCodeError.statusCode) {
+                case(HTTPError):
+                    switch (error.response.statusCode) {
                         case 400:
                             commandParameters.response.console.error("Invalid SAR file specified");
                             break;
@@ -51,7 +50,7 @@ export default class UpdateHandler extends ZosConnectBaseHandler {
                                 "Unable to update Service, it conflicts with an existing Service");
                             break;
                         default:
-                            commandParameters.response.console.error(statusCodeError.message);
+                            commandParameters.response.console.error(error.response.statusMessage);
                     }
                     break;
                 default:

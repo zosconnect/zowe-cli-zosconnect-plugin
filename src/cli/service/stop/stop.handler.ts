@@ -9,8 +9,8 @@
  *
  */
 
-import { IHandlerParameters } from "@brightside/imperative";
-import { RequestError, StatusCodeError } from "request-promise/errors";
+import { IHandlerParameters } from "@zowe/imperative";
+import { HTTPError } from "got";
 import { ZosConnectService } from "../../../api/service/ZosConnectService";
 import { ZosConnectBaseHandler } from "../../ZosConnectBaseHandler";
 
@@ -21,9 +21,8 @@ export default class ServiceStartHandler extends ZosConnectBaseHandler {
             commandParams.response.console.log(`Successfully stopped Service ${commandParams.arguments.serviceName}`);
         } catch (error) {
             switch (error.constructor) {
-                case StatusCodeError:
-                    const statusCodeError = error as StatusCodeError;
-                    switch (statusCodeError.statusCode) {
+                case HTTPError:
+                    switch (error.response.statusCode) {
                         case 401:
                         case 403:
                             commandParams.response.console.error(
@@ -34,7 +33,7 @@ export default class ServiceStartHandler extends ZosConnectBaseHandler {
                                 `Service ${commandParams.arguments.serviceName} is not installed.`);
                             break;
                         default:
-                            commandParams.response.console.error(statusCodeError.message);
+                            commandParams.response.console.error(error.response.statusMessage);
                     }
                     break;
                 default:

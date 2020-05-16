@@ -9,9 +9,9 @@
  *
  */
 
-import { IHandlerParameters } from "@brightside/imperative";
+import { IHandlerParameters } from "@zowe/imperative";
 import fs = require("fs");
-import { RequestError, StatusCodeError } from "request-promise/errors";
+import { HTTPError } from "got";
 import { ZosConnectService } from "../../../api/service/ZosConnectService";
 import { ZosConnectBaseHandler } from "../../ZosConnectBaseHandler";
 
@@ -32,9 +32,8 @@ export default class ServiceInstallHandler extends ZosConnectBaseHandler {
             commandParameters.response.console.log(`Successfully installed Service ${service.name}`);
         } catch (error) {
             switch (error.constructor) {
-                case StatusCodeError:
-                    const statusCodeError = error as StatusCodeError;
-                    switch (statusCodeError.statusCode) {
+                case HTTPError:
+                    switch (error.response.statusCode) {
                         case 400:
                             commandParameters.response.console.error(
                                 "Unable to install Service, invalid SAR file specified");
@@ -52,7 +51,7 @@ export default class ServiceInstallHandler extends ZosConnectBaseHandler {
                                 "Unable to install Service, the server does not support the type of service");
                             break;
                         default:
-                            commandParameters.response.console.error(statusCodeError.message);
+                            commandParameters.response.console.error(error.response.statusMessage);
                     }
                     break;
                 default:
