@@ -17,7 +17,7 @@
   },
   "publishConfig": {
     "access": "public",
-    "tag": "daily"
+    "tag": "zowe-v1-lts"
   },
   "keywords": [
     "zowe",
