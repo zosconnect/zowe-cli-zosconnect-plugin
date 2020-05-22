@@ -26,27 +26,27 @@
   "author": "Andrew Smithson",
   "license": "EPL-2.0",
   "dependencies": {
-    "@zosconnect/zosconnect-node": "^3.3.3",
-    "snyk": "^1.316.1"
+    "@zosconnect/zosconnect-node": "^4.0.1",
+    "snyk": "^1.321.0"
   },
   "peerDependencies": {
-    "@brightside/core": ">=2.0.0-0",
-    "@brightside/imperative": ">=2.0.0-0"
+    "@zowe/cli": "^6.5.0",
+    "@zowe/imperative": "^4.5.0"
   },
   "imperative": {
     "configurationModule": "lib/imperative.js"
   },
   "devDependencies": {
-    "@brightside/core": ">=2.0.0-0",
-    "@brightside/imperative": ">=2.0.0-0",
-    "@crshnburn/judo": "0.0.17",
-    "@types/jest": "^24.0.15",
-    "@types/node": "^10.14.12",
-    "codecov": "^3.5.0",
-    "jest": "^24.8.0",
-    "ts-jest": "^24.0.2",
-    "tslint": "^5.18.0",
-    "typescript": "^3.5.3"
+    "@intuit/judo": "0.3.2",
+    "@types/jest": "^24.9.1",
+    "@types/node": "^10.17.21",
+    "@zowe/cli": "^6.13.0",
+    "@zowe/imperative": "^4.6.2",
+    "codecov": "^3.6.5",
+    "jest": "^26.0.1",
+    "ts-jest": "^25.5.1",
+    "tslint": "^5.20.1",
+    "typescript": "^3.9.2"
   },
   "repository": {
     "type": "git",

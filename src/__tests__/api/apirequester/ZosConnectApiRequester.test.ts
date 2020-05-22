@@ -5,8 +5,9 @@ import { ZosConnectSession } from "../../../ZosConnectSession";
 
 describe("ZosConnectApiRequester tests", () => {
     const session = new ZosConnectSession("http://example.com:9080");
-    const options = { uri: "http://example.com:9080" };
-    const apiRequesterObj = new ApiRequester(options, "foo", "bar", "baz", "conn", "Started");
+    const options = {  };
+    const apiRequesterObj = new ApiRequester("https://example.com:9080/zosConnect/apiRequester/foo",
+        options, "foo", "bar", "baz", "conn", "Started");
 
     it("should install the API Requester", async () => {
         ZosConnect.prototype.createApiRequester = jest.fn().mockReturnValue(apiRequesterObj);

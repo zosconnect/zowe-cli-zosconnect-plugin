@@ -7,8 +7,8 @@ jest.mock("@zosconnect/zosconnect-node");
 
 describe("ZosConnectApi tests", () => {
     const session = new ZosConnectSession("http://example.com:9080");
-    const options = { uri: "http://example.com:9080" };
-    const apiObj = new Api(options, "foo", "bar", "baz");
+    const options = { };
+    const apiObj = new Api("https://example.com:9080/zosConnect/foo", options, "foo", "bar", "baz");
 
     it("should install the API", async () => {
         ZosConnect.prototype.createApi = jest.fn().mockReturnValue(apiObj);

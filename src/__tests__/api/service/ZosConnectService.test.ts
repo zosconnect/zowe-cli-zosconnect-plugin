@@ -5,8 +5,8 @@ import { ZosConnectSession } from "../../../ZosConnectSession";
 
 describe("ZosConnectService tests", () => {
     const session = new ZosConnectSession("http://example.com:9080");
-    const options = { uri: "http://example.com:9080" };
-    const serviceObj = new Service(options, "foo", "bar", "baz");
+    const options = { };
+    const serviceObj = new Service("http://example.com:9080/zosConnect/services/foo", options, "foo", "bar", "baz");
 
     it("should install the Service", async () => {
         ZosConnect.prototype.createService = jest.fn().mockReturnValue(serviceObj);

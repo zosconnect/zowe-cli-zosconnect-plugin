@@ -9,8 +9,8 @@
  *
  */
 
-import { IHandlerParameters } from "@brightside/imperative";
-import { RequestError, StatusCodeError } from "request-promise/errors";
+import { IHandlerParameters } from "@zowe/imperative";
+import { HTTPError } from "got";
 import { ZosConnectService } from "../../../api/service/ZosConnectService";
 import { ZosConnectBaseHandler } from "../../ZosConnectBaseHandler";
 
@@ -30,15 +30,14 @@ export default class ServiceListHandler extends ZosConnectBaseHandler {
             commandParameters.response.data.setObj(services);
         } catch (error) {
             switch (error.constructor) {
-                case StatusCodeError:
-                    const statusCodeError = error as StatusCodeError;
-                    switch (statusCodeError.statusCode) {
+                case HTTPError:
+                    switch (error.response.statusCode) {
                         case 401:
                         case 403:
                             commandParameters.response.console.error("Security error, unable to display Services");
                             break;
                         default:
-                            commandParameters.response.console.error(statusCodeError.message);
+                            commandParameters.response.console.error(error.response.statusMessage);
                     }
                     break;
                 default:

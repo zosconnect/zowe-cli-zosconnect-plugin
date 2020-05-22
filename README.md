@@ -11,7 +11,7 @@ The Zowe CLI needs to be [installed](https://docs.zowe.org/stable/user-guide/cli
 
 ## Installing
 
-`zowe plugins install @zosconnect/zosconnect-zowe-cli@lts-incremental`
+`zowe plugins install @zosconnect/zosconnect-zowe-cli@zowe-v1-lts`
 
 ## Create a profile
 
@@ -114,6 +114,10 @@ If you specify the `-f` option then the CLI will stop the API Requester before d
 ### Stop an API Requester
 
 `zowe zosconnect apirequester stop <API Requester name>`
+
+## Support
+
+If you experience any problems with this plug-in then please [raise an issue](https://github.com/zosconnect/zowe-cli-zosconnect-plugin/issues/new/choose) and the development team will look into it.
 
 ## Developing
 

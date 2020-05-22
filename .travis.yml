@@ -1,9 +1,8 @@
 language: node_js
 dist: xenial
 node_js:
-- node
-- lts/*
-- '8'
+- '10'
+- '12'
 before_install:
 - npm run setup
 before_script:

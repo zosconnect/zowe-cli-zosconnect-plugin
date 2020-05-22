@@ -9,9 +9,9 @@
  *
  */
 
-import { IHandlerParameters } from "@brightside/imperative";
+import { IHandlerParameters } from "@zowe/imperative";
 import fs = require("fs");
-import { RequestError, StatusCodeError } from "request-promise/errors";
+import { HTTPError } from "got";
 import { ZosConnectApi } from "../../../api/api/ZosConnectApi";
 import { ZosConnectBaseHandler } from "../../ZosConnectBaseHandler";
 
@@ -32,9 +32,8 @@ export default class ApiInstallHandler extends ZosConnectBaseHandler {
             commandParameters.response.console.log("Successfully installed API " + api.name);
         } catch (error) {
             switch (error.constructor) {
-                case StatusCodeError:
-                    const statusCodeError = error as StatusCodeError;
-                    switch (statusCodeError.statusCode) {
+                case HTTPError:
+                    switch (error.response.statusCode) {
                         case 400:
                             commandParameters.response.console.error(
                                 "Unable to install API, invalid AAR file specified");
@@ -48,7 +47,7 @@ export default class ApiInstallHandler extends ZosConnectBaseHandler {
                                 "Unable to install API, one with the same name is already installed");
                             break;
                         default:
-                            commandParameters.response.console.error(statusCodeError.message);
+                            commandParameters.response.console.error(error.response.statusMessage);
                     }
                     break;
                 default:

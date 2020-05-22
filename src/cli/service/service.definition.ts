@@ -9,7 +9,7 @@
  *
  */
 
-import { ICommandDefinition } from "@brightside/imperative";
+import { ICommandDefinition } from "@zowe/imperative";
 import { ZosConnectSessionutils } from "../ZosConnectionSessionUtils";
 import { DeleteDefinition } from "./delete/delete.definition";
 import { InfoDefinition } from "./info/info.definition";

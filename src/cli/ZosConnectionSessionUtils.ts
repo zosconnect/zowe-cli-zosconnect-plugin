@@ -9,7 +9,7 @@
  *
  */
 
-import { ICommandArguments, ICommandOptionDefinition } from "@brightside/imperative";
+import { ICommandArguments, ICommandOptionDefinition } from "@zowe/imperative";
 import { ZosConnectSession } from "../ZosConnectSession";
 
 export class ZosConnectSessionutils {
