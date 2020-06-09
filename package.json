@@ -26,8 +26,8 @@
   "author": "Andrew Smithson",
   "license": "EPL-2.0",
   "dependencies": {
-    "@zosconnect/zosconnect-node": "^4.0.1",
-    "snyk": "^1.321.0"
+    "@zosconnect/zosconnect-node": "^4.1.1",
+    "snyk": "^1.337.0"
   },
   "peerDependencies": {
     "@zowe/cli": "^6.5.0",
@@ -39,14 +39,14 @@
   "devDependencies": {
     "@intuit/judo": "0.3.2",
     "@types/jest": "^24.9.1",
-    "@types/node": "^10.17.21",
-    "@zowe/cli": "^6.13.0",
-    "@zowe/imperative": "^4.6.2",
-    "codecov": "^3.6.5",
+    "@types/node": "^10.17.25",
+    "@zowe/cli": "^6.15.0",
+    "@zowe/imperative": "^4.6.4",
+    "codecov": "^3.7.0",
     "jest": "^26.0.1",
     "ts-jest": "^25.5.1",
     "tslint": "^5.20.1",
-    "typescript": "^3.9.2"
+    "typescript": "^3.9.5"
   },
   "repository": {
     "type": "git",
