@@ -27,7 +27,7 @@
   "license": "EPL-2.0",
   "dependencies": {
     "@zosconnect/zosconnect-node": "^4.1.2",
-    "snyk": "^1.337.0"
+    "snyk": "^1.1064.0"
   },
   "peerDependencies": {
     "@zowe/cli": "^6.5.0",
