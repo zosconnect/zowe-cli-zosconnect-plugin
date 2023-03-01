@@ -41,7 +41,7 @@
     "@types/jest": "^24.9.1",
     "@types/node": "^10.17.25",
     "@zowe/cli": "^6.15.0",
-    "@zowe/imperative": "^4.6.4",
+    "@zowe/imperative": "^5.9.0",
     "codecov": "^3.7.0",
     "jest": "^26.0.1",
     "ts-jest": "^25.5.1",
